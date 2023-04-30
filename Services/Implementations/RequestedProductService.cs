@@ -26,7 +26,7 @@ public class RequestedProductService : IRequestedProductService
           _productRepository = productRepository;
           _emailSender = emailSender;
         }
-        public async Task<BaseResponse<RequestedProductDto>> CreateRequstedProductAsync(string productId)
+        public async Task<BaseResponse<RequestedProductDto>> CreateRequstedProductAsync(string productId, CreateRequestedProductRequestModel requestedModelodel)
         {
            var product = _productRepository.GetProductById(productId);
            var farmer = _farmerRepository.GetByEmailAsync(product.FarmerEmail);
@@ -45,7 +45,9 @@ public class RequestedProductService : IRequestedProductService
              IsAccepted = false,
              NotDelivered = false,
              FarmerEmail = farmer.User.Email,
-             Haspaid = user.Haspaid
+             Haspaid = user.Haspaid,
+             Price = requestedModelodel.Price,
+             Quantity = requestedModelodel.Quantity
 
            };
            await _requestedProductRepository.CreateAsync(requestedProduct);
@@ -110,7 +112,44 @@ public class RequestedProductService : IRequestedProductService
 
         }
 
-        public async Task<BaseResponse<IEnumerable<RequestedProductDto>>> MyRequests(string farmerId)
+    public async Task<BaseResponse<RequestedProductDto>> GetRequestedProductById(string productId)
+    {
+        var product = _requestedProductRepository.GetRequstedProductById(productId);
+        if(product == null)
+        {
+            return new BaseResponse<RequestedProductDto>
+          {
+            IsSuccess = false,
+            Message = "Internal error"
+           
+
+          };
+        }
+         var requestDto =  new RequestedProductDto{
+                Id = product.Id,
+                FarmerId = product.FarmerId,
+                BuyerId = product.FarmerId,
+                BuyerEmail = product.BuyerEmail,
+                BuyerPhoneNumber = product.BuyerPhoneNumber,
+                BuyerLocalGovernment = product.BuyerLocalGovernment,
+                ProductName = product.ProductName,
+                OrderStatus = product.OrderStatus,
+                IsAccepted = product.IsAccepted,
+                IsDelivered = product.IsDelivered,
+                FarmerName = product.FarmerName,
+                FarmerNumber = product.FarmerNumber
+
+            };
+        return new BaseResponse<RequestedProductDto>
+        {
+          IsSuccess = true,
+          Message = "Product retrieved successfully",
+          Data = requestDto
+
+        };
+    }
+
+    public async Task<BaseResponse<IEnumerable<RequestedProductDto>>> MyRequests(string farmerId)
         {
             var products = await _requestedProductRepository.GetRequestedProductsByFarmerIdAsync(farmerId);
             var requestDto = products.Select(item  => new RequestedProductDto{

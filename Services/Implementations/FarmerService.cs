@@ -315,7 +315,6 @@ public class FarmerService : IFarmerService
 
             var updateFarmer = new UpdateUserRequestModel{
                 UserName = updateFarmerModel.UserName,
-                ProfilePicture = updateFarmerModel.ProfilePicture ,
                 Name = updateFarmerModel.Name,
                 PhoneNumber  = updateFarmerModel.PhoneNumber,
                 FullAddress = updateFarmerModel.FullAddress,
@@ -345,7 +344,6 @@ public class FarmerService : IFarmerService
 
               var farmerDto = new FarmerDto{
                 UserName = updateFarmerModel.UserName,
-                ProfilePicture = updateFarmerModel.ProfilePicture ,
                 Name = updateFarmerModel.Name,
                 PhoneNumber  = updateFarmerModel.PhoneNumber,
                 FullAddress = updateFarmerModel.FullAddress,

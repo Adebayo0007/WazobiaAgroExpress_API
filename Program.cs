@@ -58,7 +58,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "WaZobia Agro Express",Version = "v1"});
 });
 
-var key = "This is an authorization key";
+var key = "Wazobia Authorization key";
 builder.Services.AddSingleton<IJWTAuthentication>(new JWTAuthentication(key));
 
 builder.Services.AddAuthentication(x =>
@@ -89,14 +89,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseRouting();
-app.UseHttpsRedirection();
-app.UseCors("CorsPolicy");
 app.UseStaticFiles();
-
-
 app.UseAuthentication();
+app.UseCors("CorsPolicy");
+app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
+app.MapGet("/hello", async (CancellationToken token) =>{
+    app.Logger.LogInformation("Request started at: " +
+    DateTime.Now.ToLongTimeString());
+    await Task.Delay(TimeSpan.FromSeconds(5),token);
+    app.Logger.LogInformation("Request completed at: "+
+    DateTime.Now.ToLongTimeString());
+    return "Success";
+    
+});
 
 app.Run();

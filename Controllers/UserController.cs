@@ -1,5 +1,5 @@
+using System.Security.Claims;
 using AgroExpressAPI.ApplicationAuthentication;
-using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Dtos.User;
 using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +11,12 @@ namespace AgroExpressAPI.Controllers;
     {
          private readonly IUserService _userService;
           private readonly IJWTAuthentication _authentication;
-        public UserController(IUserService userService, IJWTAuthentication authentication)
+           private readonly IWebHostEnvironment _webHostEnvironment;
+        public UserController(IUserService userService, IJWTAuthentication authentication,IWebHostEnvironment webHostEnvironment)
         {
             _userService = userService;
             _authentication = authentication;
+            _webHostEnvironment = webHostEnvironment;
             
         }
 
@@ -59,10 +61,23 @@ namespace AgroExpressAPI.Controllers;
 
         }
 
-         [HttpGet("GetUser/{userId}")]
-        public async Task<IActionResult> GetUser(string userId)
+         [HttpGet("GetUserById/{userId}")]
+        public async Task<IActionResult> GetUserById([FromRoute]string userId)
         {       
-           var user = await _userService.GetByIdAsync(userId);
+             if(string.IsNullOrWhiteSpace(userId)) userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+           var user = await _userService.GetByIdAsync (userId);
+             if(user.IsSuccess == false)
+            {
+                return BadRequest(user);
+            }
+             return Ok(user);
+        }
+
+         [HttpGet("GetUserByEmail/{userEmail}")]
+        public async Task<IActionResult> GetUserByEmail([FromRoute]string userEmail)
+        {       
+            if(string.IsNullOrWhiteSpace(userEmail)) userEmail = User.FindFirst(ClaimTypes.Email).Value;
+           var user = await _userService.GetByEmailAsync(userEmail);
              if(user.IsSuccess == false)
             {
                 return BadRequest(user);
@@ -71,7 +86,7 @@ namespace AgroExpressAPI.Controllers;
         }
         
         [HttpDelete("DeleteUser/{userId}")]
-         public async Task<IActionResult> DeleteUser(string userId)
+         public async Task<IActionResult> DeleteUser([FromRoute]string userId)
         {
             if(string.IsNullOrWhiteSpace(userId))
             {
@@ -108,8 +123,8 @@ namespace AgroExpressAPI.Controllers;
              return Ok(pendingRequests);
         }
         
-         [HttpGet("VerifyUser")]
-        public IActionResult VerifyUser(string userEmail)
+         [HttpGet("VerifyUser/{userEmail}")]
+        public IActionResult VerifyUser([FromRoute]string userEmail)
         {
             if(!(string.IsNullOrWhiteSpace(userEmail)))
             {

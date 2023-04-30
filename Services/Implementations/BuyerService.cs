@@ -122,6 +122,7 @@ public class BuyerService : IBuyerService
 
         public async Task<BaseResponse<ActiveAndNonActiveBuyers>> GetAllActiveAndNonActiveAsync()
         {
+            
                   var nonActiveBuyers = await _buyerRepository.GetAllNonActiveAsync();
 
            if(nonActiveBuyers == null)
@@ -344,7 +345,6 @@ public class BuyerService : IBuyerService
         {
              var updateBuyer = new UpdateUserRequestModel{
                 UserName = updateBuyerModel.UserName,
-                ProfilePicture = updateBuyerModel.ProfilePicture ,
                 Name = updateBuyerModel.Name,
                 PhoneNumber  = updateBuyerModel.PhoneNumber,
                 FullAddress = updateBuyerModel.FullAddress,
@@ -374,7 +374,6 @@ public class BuyerService : IBuyerService
 
               var buyerDto = new BuyerDto{
                 UserName = updateBuyerModel.UserName,
-                ProfilePicture = updateBuyerModel.ProfilePicture ,
                 Name = updateBuyerModel.Name,
                 PhoneNumber  = updateBuyerModel.PhoneNumber,
                 FullAddress = updateBuyerModel.FullAddress,

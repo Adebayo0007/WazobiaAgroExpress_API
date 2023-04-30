@@ -56,7 +56,7 @@ namespace AgroExpressAPI.Repositories.Implementations;
 
         public RequestedProduct GetRequstedProductById(string requstedProductId)
         {
-            throw new NotImplementedException();
+            return  _applicationDbContext.RequestedProducts.SingleOrDefault(r => r.Id == requstedProductId);
         }
 
         public RequestedProduct UpdateRequestedProduct(RequestedProduct requestedProduct)

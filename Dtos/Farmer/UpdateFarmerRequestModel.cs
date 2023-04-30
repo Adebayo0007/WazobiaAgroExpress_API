@@ -2,7 +2,6 @@ namespace AgroExpressAPI.Dtos.Farmer;
     public class UpdateFarmerRequestModel
        {
         public string UserName{get; set;}
-        public byte[] ProfilePicture {get; set;}
         public string Name{get; set;}  
         public string PhoneNumber{get; set;}
         public string FullAddress{get; set;}
