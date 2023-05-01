@@ -23,6 +23,11 @@ namespace AgroExpressAPI.Controllers;
         [HttpPost("LogIn")]
         public async Task<IActionResult> LogIn(LogInRequestModel loginModel)
         {
+             if(!ModelState.IsValid)
+            {
+                string response1 = "Invalid input,check your input very well";
+                return BadRequest(response1);
+            }
             if (string.IsNullOrWhiteSpace(loginModel.Email)  || string.IsNullOrWhiteSpace(loginModel.Password))
             {
                 return NotFound();

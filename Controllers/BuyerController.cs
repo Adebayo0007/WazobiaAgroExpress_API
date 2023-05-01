@@ -21,9 +21,14 @@ namespace AgroExpressAPI.Controllers;
 
 
          [HttpPost("CreateBuyer")]
-         [ValidateAntiForgeryToken]
+         //[ValidateAntiForgeryToken]
          public async Task<IActionResult> CreateBuyer([FromForm]CreateBuyerRequestModel buyerModel)
         {
+            if(!ModelState.IsValid)
+            {
+                string response = "Invalid input,check your input very well";
+                return BadRequest(response);
+            }
 
             var buyerExist = await _userService.ExistByEmailAsync(buyerModel.Email);
             if(!(buyerExist))

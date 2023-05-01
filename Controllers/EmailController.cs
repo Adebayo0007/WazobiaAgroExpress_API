@@ -17,6 +17,11 @@ namespace AgroExpressAPI.Controllers;
         [ValidateAntiForgeryToken]
          public async Task<IActionResult> CreateEmail([FromForm]EmailRequestModel emailRequestModel)
         {
+             if(!ModelState.IsValid)
+            {
+                string response1 = "Invalid input,check your input very well";
+                return BadRequest(response1);
+            }
             var result = await _emailSender.SendEmail(emailRequestModel);
             string response;
             if(result == true)

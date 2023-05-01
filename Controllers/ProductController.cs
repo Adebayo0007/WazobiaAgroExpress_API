@@ -17,6 +17,11 @@ namespace AgroExpressAPI.Controllers;
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateProduct(CreateProductRequestModel model)
         {
+             if(!ModelState.IsValid)
+            {
+                string response = "Invalid input,check your input very well";
+                return BadRequest(response);
+            }
                   try{
 
                         IFormFile file1 = Request.Form.Files.FirstOrDefault();

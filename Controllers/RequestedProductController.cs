@@ -11,12 +11,14 @@ namespace AgroExpressAPI.Controllers;
           private readonly IRequestedProductService _requstedProductService;
            private readonly IProductService _productService;
              private readonly IUserService _userService;
+             private readonly ITransactionService _transactionService;
              
-        public RequestedProductController(IRequestedProductService requstedProductService, IProductService productService, IUserService userService)
+        public RequestedProductController(IRequestedProductService requstedProductService, IProductService productService, IUserService userService, ITransactionService transactionService)
         {
             _requstedProductService = requstedProductService;
             _productService = productService;
             _userService = userService;
+            _transactionService = transactionService;
         }
 
        
@@ -24,11 +26,18 @@ namespace AgroExpressAPI.Controllers;
          [HttpPost("CreateRequestedProduct/{requestId}")]
         public async Task<IActionResult> CreateRequestedProduct([FromForm]CreateRequestedProductRequestModel requestedModel, string requestId)
         {
-            var userEmail = User.FindFirst(ClaimTypes.Email).Value;
+             if(!ModelState.IsValid)
+            {
+                string response1 = "Invalid input,check your input very well";
+                return BadRequest(response1);
+            }
+            // var userEmail = User.FindFirst(ClaimTypes.Email).Value;
+             var userEmail = requestedModel.BuyerEmail;
            var user = await _userService.GetByEmailAsync(userEmail);
            if(user.Data.Haspaid == true)
            {
-                    var product =  await  _requstedProductService.CreateRequstedProductAsync(requestId,requestedModel);
+                    // var product =  await  _requstedProductService.CreateRequstedProductAsync(requestId,requestedModel);
+                     var product =  await  _transactionService.MakePayment(requestedModel);
                     if(product.IsSuccess != true) return BadRequest(product);
                     return Ok(product);  
 

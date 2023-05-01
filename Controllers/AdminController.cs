@@ -50,6 +50,12 @@ namespace AgroExpressAPI.Controllers;
          [ValidateAntiForgeryToken]
          public async Task<IActionResult> UpdateAdmin(UpdateAdminRequestModel requestModel,string id)
         {
+             if(!ModelState.IsValid)
+            {
+                string response = "Invalid input,check your input very well";
+                return BadRequest(response);
+            }
+            
             if(string.IsNullOrWhiteSpace(requestModel.Email))
             {
                 requestModel.Email = User.FindFirst(ClaimTypes.Email).Value;

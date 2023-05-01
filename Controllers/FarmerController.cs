@@ -24,6 +24,11 @@ namespace AgroExpressAPI.Controllers;
         [ValidateAntiForgeryToken]
          public async Task<IActionResult> CreateFarmer([FromForm]CreateFarmerRequestModel farmerModel)
         {
+             if(!ModelState.IsValid)
+            {
+                string response = "Invalid input,check your input very well";
+                return BadRequest(response);
+            }
           var farmerExist = await _userService.ExistByEmailAsync(farmerModel.Email);
             if(!(farmerExist))
             {
