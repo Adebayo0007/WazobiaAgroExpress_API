@@ -15,11 +15,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors(a => a.AddPolicy("CorsPolicy", b => 
  {
-     b
+     b.WithOrigins("http://localhost:5000")
      .AllowAnyMethod()
-     .AllowAnyHeader()
-     .AllowAnyOrigin();
+     .AllowAnyHeader();
+     
  }));
+
+
  builder.Services.AddHttpContextAccessor();
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -52,7 +54,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseMySQL(
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Wazobia Agro Express",Version = "v1"});
@@ -86,15 +87,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    //app.UseSwaggerUI();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wazobia Agro Express v1"));
 }
 app.UseRouting();
 app.UseStaticFiles();
 app.UseAuthentication();
+app.UseAuthorization();
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.MapControllers();
 app.MapGet("/hello", async (CancellationToken token) =>{
     app.Logger.LogInformation("Request started at: " +

@@ -1,4 +1,3 @@
-using System.Configuration;
 using Newtonsoft.Json.Linq;
 using sib_api_v3_sdk.Api;
 using sib_api_v3_sdk.Client;
@@ -33,9 +32,9 @@ public class EmailSender : IEmailSender
     {
            
             string x;
-              sib_api_v3_sdk.Client.Configuration.Default.ApiKey.Clear();
+            Configuration.Default.ApiKey.Clear();
             var apiKey = _configuration.GetValue<string>("SendinblueAPIkey:ApiKey");
-           sib_api_v3_sdk.Client.Configuration.Default.ApiKey.Add("api-key", apiKey);
+            Configuration.Default.ApiKey.Add("api-key", apiKey);
             if(email.SenderEmail == null) 
             {
                email.SenderEmail = "tijaniadebayoabdllahi@gmail.com";
@@ -68,7 +67,9 @@ public class EmailSender : IEmailSender
                 SendSmtpEmailCc CcData = new SendSmtpEmailCc(CcEmail, CcName);
                 List<SendSmtpEmailCc> Cc = new List<SendSmtpEmailCc>();
                 Cc.Add(CcData);
-                string HtmlContent = $"<html><body><h1>From {x}</h1><br><h3> {email.Message}</h3></body></html>";
+                string messageTemplate = EmailTemplate(x,email.Message);
+                // string HtmlContent = $"<html><body><h1>From {x}</h1><br><h3> {email.Message}</h3></body></html>";
+                 string HtmlContent = messageTemplate;
                 string TextContent = null;
                 string Subject = "{{params.subject}}";
                 string ReplyToName = "Wazobia Agro Express";
@@ -112,5 +113,33 @@ public class EmailSender : IEmailSender
                 {
                     return false;
                 }
+    }
+    private string EmailTemplate(string from, string content)
+    {
+        var emailTemplate = $$""""
+        <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <link rel="icon" type="images/x-icon" href="~/Data/agro logo.png" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Wazobia Agro Express</title>
+            </head>
+            <body>
+                <div style="  display: flex;flex-direction: column;justify-content: center;width: 100vw;height: 100vh;gap:1vh;">
+                    <div style=" height: 20vh;display: flex;justify-content: center;align-items: center;">
+                        <div style=" width: 23vw;height: 15vh;border-radius: 100%;background-image: url('https://media.istockphoto.com/id/1445788384/photo/agricultural-landscape-of-golden-wheat-field.jpg?s=612x612&w=0&k=20&c=QheMJyOWpwRwvzM_Z_fkraekI1WA62xp-9S5BVE-J08=');background-repeat: no-repeat;background-size: cover;box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;"></div>
+                    </div>
+                    <div style=" height: 77vh;overflow-y: scroll;scroll-behavior: smooth;padding: 1vh 2vw;">
+                        <div style=" margin: 2vh 0%;"><span style=" font-size: larger;font-weight: bolder;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{from}}</span></div>
+                        <div ><span style=" font-size: large;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;text-align: center;">{{content}}</span></div>
+                    </div>
+                </div>
+            </body>
+            </html>
+    """";
+               return emailTemplate;
+
     }
 }

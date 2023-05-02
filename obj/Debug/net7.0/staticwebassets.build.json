@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "+j/0cxAVGRYpiB2fpXdQpp5HZpAuStw5FqVL2cU7pbs=",
+  "Hash": "93S4yl1nkkmE6puthwdmdcnSsoGByUMhza8OB7PuYl0=",
   "Source": "AgroExpressAPI",
   "BasePath": "_content/AgroExpressAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "AgroExpressAPI\\wwwroot",
+      "Source": "AgroExpressAPI",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "BasePath": "_content/AgroExpressAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\agro logo.png",
+      "SourceId": "AgroExpressAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "BasePath": "_content/AgroExpressAPI",
+      "RelativePath": "agro logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\agro logo.png"
+    }
+  ]
 }

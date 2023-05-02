@@ -24,7 +24,7 @@ namespace AgroExpressAPI.Controllers;
          //[ValidateAntiForgeryToken]
          public async Task<IActionResult> CreateBuyer([FromForm]CreateBuyerRequestModel buyerModel)
         {
-            if(!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 string response = "Invalid input,check your input very well";
                 return BadRequest(response);

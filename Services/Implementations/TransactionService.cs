@@ -195,16 +195,6 @@ public class TransactionService : ITransactionService
 
 
 
-
-
-
-
-
-
-
-
-
-
   
     public async Task<BaseResponse<IEnumerable<TransactionDto>>> GetAllPaymentsMadeByUserUsingEmail(string email)
     {
@@ -279,6 +269,7 @@ public class TransactionService : ITransactionService
 
     }
 
+
     public async Task<BaseResponse<TransactionDto>> VerifyPayment(string referrenceNumber)
     {
         var transaction = _transactionRepository.GetByReferenceNumberAsync(referrenceNumber);
@@ -327,7 +318,6 @@ public class TransactionService : ITransactionService
             var trans = new TransactionDto{
                 Amount = responseObject.data.amount,
                 ReferenceNumber = responseObject.data.referrenceNumber
-
             };
       
             return new BaseResponse<TransactionDto>
@@ -344,8 +334,7 @@ public class TransactionService : ITransactionService
                 
             };
     }
-
-
+    
     private string GenerateReferrenceNumber()
     {
         return Guid.NewGuid().ToString().Substring(0, 10);

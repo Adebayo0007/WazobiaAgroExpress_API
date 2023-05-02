@@ -80,3 +80,4 @@ C:\Users\user\Desktop\AgroExpressAPI\bin\Debug\net7.0\Microsoft.IdentityModel.Pr
 C:\Users\user\Desktop\AgroExpressAPI\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\user\Desktop\AgroExpressAPI\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\user\Desktop\AgroExpressAPI\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\user\Desktop\AgroExpressAPI\bin\Debug\net7.0\AgroExpressAPI.staticwebassets.runtime.json

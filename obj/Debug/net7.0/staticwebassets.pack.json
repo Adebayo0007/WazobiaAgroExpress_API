@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\agro logo.png",
+      "PackagePath": "staticwebassets\\agro logo.png"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.AgroExpressAPI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.AgroExpressAPI.props",
+      "PackagePath": "build\\AgroExpressAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.AgroExpressAPI.props",
+      "PackagePath": "buildMultiTargeting\\AgroExpressAPI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.AgroExpressAPI.props",
+      "PackagePath": "buildTransitive\\AgroExpressAPI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
