@@ -337,6 +337,10 @@ public class TransactionService : ITransactionService
     
     private string GenerateReferrenceNumber()
     {
-        return Guid.NewGuid().ToString().Substring(0, 10);
+                string alpha  ="abcdefghijklmnopqrstuvwxyz".ToUpper();
+                var i = new Random().Next(25);
+                var j = new Random().Next(25);
+                var k = new Random().Next(25,99);
+                return $"Ref{k}{i}{j}{alpha[i]}{alpha[j]}" ;
     }
 }

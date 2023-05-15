@@ -20,21 +20,23 @@ namespace AgroExpressAPI.ApplicationAuthentication;
              var claims = new List<Claim>();
              claims.Add(new Claim(ClaimTypes.NameIdentifier, model.Data.Id));                    
              claims.Add(new Claim(ClaimTypes.Email, model.Data.Email));
-            //  foreach (var role in model.)
+            //  foreach (var role in model.Roles)
             // {
                 claims.Add(new Claim(ClaimTypes.Role, model.Data.Role));
             //}         
                                  
-            var tokenDesriptor = new SecurityTokenDescriptor
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 IssuedAt= DateTime.Now,
                 Expires = DateTime.Now.AddHours(1),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),
-                    SecurityAlgorithms.HmacSha256Signature)
+                    SecurityAlgorithms.HmacSha256Signature),
+                    // Issuer = "",
+                    // Audience = ""
             };
-                var token = tokenHandler.CreateToken(tokenDesriptor);
+                var token = tokenHandler.CreateToken(tokenDescriptor);
                 return tokenHandler.WriteToken(token);
         }
     }

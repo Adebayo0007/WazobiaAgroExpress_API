@@ -14,35 +14,14 @@ namespace AgroExpressAPI.Controllers;
         }
        
          [HttpPost("CreateProduct")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateProduct(CreateProductRequestModel model)
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateProduct([FromForm]CreateProductRequestModel model)
         {
              if(!ModelState.IsValid)
             {
                 string response = "Invalid input,check your input very well";
                 return BadRequest(response);
-            }
-                  try{
-
-                        IFormFile file1 = Request.Form.Files.FirstOrDefault();
-                        using (var dataStream1 = new MemoryStream())
-                        {
-                           file1.OpenReadStream();
-                           await file1.CopyToAsync(dataStream1);
-                            model.FirstDimentionPicture = dataStream1.ToArray();
-                            model.SecondDimentionPicture = dataStream1.ToArray();
-                            model.ThirdDimentionPicture = dataStream1.ToArray();
-                            model.ForthDimentionPicture = dataStream1.ToArray();
-                        }
-                    
-                       }
-                        catch(Exception ex)
-                        {
-                            string response = "internal error";
-                            return BadRequest(response);
-                        }
-
-                       
+            }   
             var product = await _productService.CreateProductAsync(model);
             if(product.IsSuccess == false) return BadRequest(product);
             return Ok(product);
@@ -75,9 +54,9 @@ namespace AgroExpressAPI.Controllers;
              return Ok(product);
         }
 
-        [HttpPut("UpdateProduct/{productsId}")]
-         [ValidateAntiForgeryToken]
-         public async Task<IActionResult> UpdateProduct(UpdateProductRequestModel requestModel,[FromRoute]string productsId)
+        [HttpPatch("UpdateProduct/{productsId}")]
+        //  [ValidateAntiForgeryToken]
+         public async Task<IActionResult> UpdateProduct([FromForm]UpdateProductRequestModel requestModel,[FromRoute]string productsId)
         {
              var product = await _productService.UpdateProduct(requestModel,productsId);
               if(product.IsSuccess == false) return BadRequest(product);
@@ -94,8 +73,8 @@ namespace AgroExpressAPI.Controllers;
         }
 
 
-          [HttpPost("SearchProduct")]
-         public async Task<IActionResult> SearchProduct(string searchInput)
+          [HttpGet("SearchProduct/{searchInput}")]
+         public async Task<IActionResult> SearchProduct([FromRoute]string searchInput)
         {
             if(string.IsNullOrWhiteSpace(searchInput)) return BadRequest();
         

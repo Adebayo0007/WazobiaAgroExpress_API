@@ -1,9 +1,9 @@
 namespace AgroExpressAPI.Dtos.Buyer;
     public class BuyerDto
     {
-         public string Id{get; set;}
+        public string Id{get; set;}
         public string UserName{get; set;}
-        public byte[] ProfilePicture {get; set;}
+        public IFormFile ProfilePicture {get; set;}
         public string Name{get; set;}
         public string PhoneNumber{get; set;}
         public string FullAddress{get; set;}

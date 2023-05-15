@@ -9,7 +9,7 @@ namespace AgroExpressAPI.Dtos.Farmer;
         [MaxLength(10)]
         public string UserName{get; set;}
         [DisplayName("Profile Picture")]
-        public byte[] ProfilePicture {get; set;}
+        public IFormFile ProfilePicture {get; set;}
         [Required]
         [DisplayName("First Name")]
         public string FirstName{get; set;}

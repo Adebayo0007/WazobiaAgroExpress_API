@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using AgroExpressAPI.Dtos.Farmer;
 using AgroExpressAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
@@ -21,7 +22,7 @@ namespace AgroExpressAPI.Controllers;
 
        
         [HttpPost("CreateFarmer")]
-        [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
          public async Task<IActionResult> CreateFarmer([FromForm]CreateFarmerRequestModel farmerModel)
         {
              if(!ModelState.IsValid)
@@ -32,24 +33,7 @@ namespace AgroExpressAPI.Controllers;
           var farmerExist = await _userService.ExistByEmailAsync(farmerModel.Email);
             if(!(farmerExist))
             {
-                 if(farmerModel.ProfilePicture != null)
-                {
-
-                    try{
-
-                        IFormFile file = Request.Form.Files.FirstOrDefault();
-                        using (var dataStream = new MemoryStream())
-                        {
-                           await file.CopyToAsync(dataStream);
-                            farmerModel.ProfilePicture = dataStream.ToArray();
-                        }
-                    
-                       }
-                        catch(Exception ex)
-                        {
-                            return BadRequest();
-                        }
-                }
+                
                         var farmer = await _farmerService.CreateAsync(farmerModel);
 
                         if(farmer.IsSuccess == false) return BadRequest(farmer);
@@ -100,7 +84,7 @@ namespace AgroExpressAPI.Controllers;
              return Ok(farmer);
         }
 
-          [HttpDelete("DeleteFarmer/{farmerId}")]
+          [HttpPatch("DeleteFarmer/{farmerId}")]
          public IActionResult DeleteFarmer([FromRoute]string farmerId)
         {
             if(string.IsNullOrWhiteSpace(farmerId)) farmerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -108,7 +92,7 @@ namespace AgroExpressAPI.Controllers;
             return Ok();
         }
           
-         
+         [Authorize(Roles = "Admin")]
         [HttpGet("Farmers")]
         public async Task<IActionResult> Farmers()
         {
@@ -118,8 +102,8 @@ namespace AgroExpressAPI.Controllers;
 
         }
         
-           [HttpPost("SearchFarmers")]
-         public async Task<IActionResult> SearchFarmers(string searchInput)
+           [HttpGet("SearchFarmers/{searchInput}")]
+         public async Task<IActionResult> SearchFarmers([FromRoute]string searchInput)
         {
              if(string.IsNullOrWhiteSpace(searchInput)) return BadRequest();
              var farmers = await _farmerService.SearchFarmerByEmailOrUserName(searchInput);

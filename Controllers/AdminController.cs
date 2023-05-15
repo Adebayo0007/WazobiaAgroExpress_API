@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using AgroExpressAPI.Dtos.Admin;
 using AgroExpressAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
@@ -36,7 +37,8 @@ namespace AgroExpressAPI.Controllers;
             
              return Ok(admin);
         }
-
+        
+        [Authorize()]
          [HttpGet("GetAdminByEmail/{adminEmail}")]
         public async Task<IActionResult> GetAdminByEmail([FromRoute]string adminEmail)
         {       

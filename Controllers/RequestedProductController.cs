@@ -24,20 +24,21 @@ namespace AgroExpressAPI.Controllers;
        
 
          [HttpPost("CreateRequestedProduct/{requestId}")]
-        public async Task<IActionResult> CreateRequestedProduct([FromForm]CreateRequestedProductRequestModel requestedModel, string requestId)
+        public async Task<IActionResult> CreateRequestedProduct([FromForm]CreateRequestedProductRequestModel requestedModel, [FromRoute]string requestId)
         {
              if(!ModelState.IsValid)
             {
                 string response1 = "Invalid input,check your input very well";
                 return BadRequest(response1);
             }
-            // var userEmail = User.FindFirst(ClaimTypes.Email).Value;
-             var userEmail = requestedModel.BuyerEmail;
-           var user = await _userService.GetByEmailAsync(userEmail);
+            requestedModel.BuyerEmail = User.FindFirst(ClaimTypes.Email).Value;
+            requestedModel.ProductId = requestId;
+            //  var userEmail = requestedModel.BuyerEmail;
+           var user = await _userService.GetByEmailAsync(requestedModel.BuyerEmail);
            if(user.Data.Haspaid == true)
            {
-                    // var product =  await  _requstedProductService.CreateRequstedProductAsync(requestId,requestedModel);
-                     var product =  await  _transactionService.MakePayment(requestedModel);
+                    var product =  await  _requstedProductService.CreateRequstedProductAsync(requestId,requestedModel);
+                    //  var product =  await  _transactionService.MakePayment(requestedModel);
                     if(product.IsSuccess != true) return BadRequest(product);
                     return Ok(product);  
 
@@ -56,7 +57,7 @@ namespace AgroExpressAPI.Controllers;
                return Ok(results);
          }
 
-           [HttpGet("GetRequestedProductById/{productId}")]
+           [HttpGet("GetRequestedProductById/{requestId}")]
         public async Task<IActionResult> GetRequestedProductById([FromRoute]string requestId)
         {       
             if(string.IsNullOrWhiteSpace(requestId)) return BadRequest();

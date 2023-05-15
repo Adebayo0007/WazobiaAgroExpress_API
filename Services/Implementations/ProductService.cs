@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using AgroExpressAPI.Conversion;
 using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Dtos.Product;
 using AgroExpressAPI.Email;
@@ -52,10 +53,10 @@ public class ProductService : IProductService
 
             var product = new Product{
                  FarmerId = farmer.Id,
-                 FirstDimentionPicture = productModel.FirstDimentionPicture,
-                 SecondDimentionPicture = productModel.SecondDimentionPicture,
-                 ThirdDimentionPicture = productModel.ThirdDimentionPicture,
-                 ForthDimentionPicture = productModel.ForthDimentionPicture,
+                 FirstDimentionPicture = ConvertToByteArrays.ToBytearray(productModel.FirstDimentionPicture),
+                 SecondDimentionPicture = ConvertToByteArrays.ToBytearray(productModel.SecondDimentionPicture),
+                 ThirdDimentionPicture = ConvertToByteArrays.ToBytearray(productModel.ThirdDimentionPicture),
+                 ForthDimentionPicture = ConvertToByteArrays.ToBytearray(productModel.ForthDimentionPicture),
                  ProductName = productModel.ProductName.Trim(),
                  FarmerUserName = farmer.User.UserName,
                  FarmerEmail = farmer.User.Email,
@@ -107,7 +108,7 @@ public class ProductService : IProductService
         public async Task DeleteProduct(string productId)
         {
             var product = _productRepository.GetProductById(productId);
-             _productRepository.DeleteProduct(product);
+            await  _productRepository.DeleteProduct(product);
         }
 
         public async Task<BaseResponse<IEnumerable<ProductDto>>> GetAllFarmProductAsync()
@@ -370,7 +371,7 @@ public class ProductService : IProductService
                  Id = product.Id,
                  FarmerId = product.FarmerId,
                  FirstDimentionPicture = product.FirstDimentionPicture,
-                 SecondDimentionPicture = product.SecondDimentionPicture,
+                 SecondDimentionPicture =product.SecondDimentionPicture,
                  ThirdDimentionPicture = product.ThirdDimentionPicture,
                  ForthDimentionPicture = product.ForthDimentionPicture,
                  ProductName = product.ProductName,

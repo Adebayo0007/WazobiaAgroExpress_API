@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using AgroExpressAPI.ApplicationAuthentication;
 using AgroExpressAPI.ApplicationContext;
@@ -15,11 +16,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors(a => a.AddPolicy("CorsPolicy", b => 
  {
-     b.WithOrigins("http://localhost:5000")
-     .AllowAnyMethod()
+     //b.WithOrigins("http://localhost:5000/")
+     b.AllowAnyMethod()
+     .AllowAnyOrigin()
      .AllowAnyHeader();
      
  }));
+
+
+ builder.Services.AddAuthorization( x =>
+ x.AddPolicy("AdminPolicy", policy =>{
+    policy.RequireRole("Admin");
+    policy.RequireClaim(ClaimTypes.Email, new string[] {"tijaniadebayoabdllahi@gmail.com","johnwilson5864@gmail.com"});
+    
+ }));  //Adding a policy to an End-point or Controller
 
 
  builder.Services.AddHttpContextAccessor();
@@ -59,6 +69,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Wazobia Agro Express",Version = "v1"});
 });
 
+
 var key = "Wazobia Authorization key";
 builder.Services.AddSingleton<IJWTAuthentication>(new JWTAuthentication(key));
 
@@ -90,11 +101,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wazobia Agro Express v1"));
 }
 app.UseRouting();
+app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("CorsPolicy");
-app.UseHttpsRedirection();
 app.MapControllers();
 app.MapGet("/hello", async (CancellationToken token) =>{
     app.Logger.LogInformation("Request started at: " +

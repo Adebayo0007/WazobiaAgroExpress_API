@@ -137,7 +137,8 @@ public class RequestedProductService : IRequestedProductService
                 IsAccepted = product.IsAccepted,
                 IsDelivered = product.IsDelivered,
                 FarmerName = product.FarmerName,
-                FarmerNumber = product.FarmerNumber
+                FarmerNumber = product.FarmerNumber,
+                Price = product.Price
 
             };
         return new BaseResponse<RequestedProductDto>

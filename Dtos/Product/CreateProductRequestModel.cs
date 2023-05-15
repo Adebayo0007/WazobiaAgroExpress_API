@@ -7,16 +7,16 @@ namespace AgroExpressAPI.Dtos.Product;
       
       [Required]
       [DisplayName("Front View")]
-      public byte[] FirstDimentionPicture{get; set;}
+      public IFormFile FirstDimentionPicture{get; set;}
        [Required]
         [DisplayName("BackView")]
-      public byte[] SecondDimentionPicture{get; set;}
+      public IFormFile SecondDimentionPicture{get; set;}
        [Required]
         [DisplayName("Right View")]
-      public byte[] ThirdDimentionPicture{get; set;}
+      public IFormFile ThirdDimentionPicture{get; set;}
        [Required]
         [DisplayName("Left View")]
-      public byte[] ForthDimentionPicture{get; set;}
+      public IFormFile ForthDimentionPicture{get; set;}
        [Required]
         [DisplayName("Product Name")]
       public string ProductName{get; set;}

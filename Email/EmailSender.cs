@@ -68,8 +68,7 @@ public class EmailSender : IEmailSender
                 List<SendSmtpEmailCc> Cc = new List<SendSmtpEmailCc>();
                 Cc.Add(CcData);
                 string messageTemplate = EmailTemplate(x,email.Message);
-                // string HtmlContent = $"<html><body><h1>From {x}</h1><br><h3> {email.Message}</h3></body></html>";
-                 string HtmlContent = messageTemplate;
+                string HtmlContent = messageTemplate;
                 string TextContent = null;
                 string Subject = "{{params.subject}}";
                 string ReplyToName = "Wazobia Agro Express";

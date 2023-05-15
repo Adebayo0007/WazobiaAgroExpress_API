@@ -1,6 +1,8 @@
 using System.Security.Claims;
+using AgroExpressAPI.Conversion;
 using AgroExpressAPI.Dtos.Buyer;
 using AgroExpressAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
@@ -24,33 +26,20 @@ namespace AgroExpressAPI.Controllers;
          //[ValidateAntiForgeryToken]
          public async Task<IActionResult> CreateBuyer([FromForm]CreateBuyerRequestModel buyerModel)
         {
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 string response = "Invalid input,check your input very well";
+                return BadRequest(response);
+            }
+            if(buyerModel.LocalGovernment == "--LGA--")
+            {
+                 string response = "Invalid Local Government";
                 return BadRequest(response);
             }
 
             var buyerExist = await _userService.ExistByEmailAsync(buyerModel.Email);
             if(!(buyerExist))
             {
-                if(buyerModel.ProfilePicture != null)
-                {
-
-                    try{
-
-                        IFormFile file = Request.Form.Files.FirstOrDefault();
-                        using (var dataStream = new MemoryStream())
-                        {
-                           await file.CopyToAsync(dataStream);
-                            buyerModel.ProfilePicture = dataStream.ToArray();
-                        }
-                    
-                       }
-                        catch(Exception ex)
-                        {
-                            return BadRequest();
-                        }
-                }
 
                         var buyer = await _buyerService.CreateAsync(buyerModel);
 
@@ -126,7 +115,7 @@ namespace AgroExpressAPI.Controllers;
             _buyerService.DeleteAsync(buyerId);
             return Ok();
         }
-
+          [Authorize(Roles = "Admin")]
           [HttpGet("Buyers")]
         public async Task<IActionResult> Buyers()
         {
