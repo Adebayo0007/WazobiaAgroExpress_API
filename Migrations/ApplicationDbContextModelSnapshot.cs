@@ -308,8 +308,8 @@ namespace AgroExpressAPI.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("longtext");
 
-                    b.Property<byte[]>("ProfilePicture")
-                        .HasColumnType("longblob");
+                    b.Property<string>("ProfilePicture")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Role")
                         .HasColumnType("longtext");
@@ -329,7 +329,7 @@ namespace AgroExpressAPI.Migrations
                         {
                             Id = "37846734-732e-4149-8cec-6f43d1eb3f60",
                             AddressId = "cc7578e3-52a9-49e9-9788-2da54df19f38",
-                            DateCreated = new DateTime(2023, 4, 28, 0, 0, 11, 89, DateTimeKind.Local).AddTicks(4399),
+                            DateCreated = new DateTime(2023, 5, 21, 18, 21, 10, 247, DateTimeKind.Local).AddTicks(2565),
                             Due = true,
                             Email = "tijaniadebayoabdllahi@gmail.com",
                             Gender = "Male",
@@ -337,7 +337,7 @@ namespace AgroExpressAPI.Migrations
                             IsActive = true,
                             IsRegistered = true,
                             Name = "Adebayo Addullah",
-                            Password = "$2b$10$Ts/MKl2xLiniCgt8Ma.0iu/e2RA48yVZzdaU3CEIjNEmHcAbBZ23q",
+                            Password = "$2b$10$11s7SA72IZh1xxraUNfRT.6xbGHbDBwfRtbIa307ixS1ixwKEK5L2",
                             PhoneNumber = "08087054632",
                             Role = "Admin",
                             UserName = "Modrator"

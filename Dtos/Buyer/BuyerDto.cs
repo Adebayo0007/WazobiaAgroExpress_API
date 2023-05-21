@@ -3,7 +3,7 @@ namespace AgroExpressAPI.Dtos.Buyer;
     {
         public string Id{get; set;}
         public string UserName{get; set;}
-        public IFormFile ProfilePicture {get; set;}
+        public string ProfilePicture {get; set;}
         public string Name{get; set;}
         public string PhoneNumber{get; set;}
         public string FullAddress{get; set;}

@@ -8,6 +8,8 @@ using AgroExpressAPI.Entities;
 using AgroExpressAPI.Repositories.Interfaces;
 using AgroExpressAPI.Services.Interfaces;
 
+
+
 namespace AgroExpressAPI.Services.Implementations;
 public class BuyerService : IBuyerService
 {
@@ -24,6 +26,7 @@ public class BuyerService : IBuyerService
         }
         public async Task<BaseResponse<BuyerDto>> CreateAsync(CreateBuyerRequestModel createBuyerModel)
         {
+             
            var response = await _emailSender.EmailValidaton(createBuyerModel.Email);
            if(response == false)
            {
@@ -40,7 +43,7 @@ public class BuyerService : IBuyerService
                   };
             var user = new User{
                   UserName = createBuyerModel.UserName.Trim(),
-                  ProfilePicture = ConvertToByteArrays.ToBytearray(createBuyerModel.ProfilePicture),
+                  ProfilePicture = createBuyerModel.ProfilePicture,
                   Name = $"{createBuyerModel.FirstName} {createBuyerModel.LastName}",
                   PhoneNumber = createBuyerModel.PhoneNumber,
                   Address = address,
@@ -87,7 +90,7 @@ public class BuyerService : IBuyerService
 
              var buyerDto = new BuyerDto{
                   UserName = createBuyerModel.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(user.ProfilePicture,"Profile Picture"),
+                  ProfilePicture = user.ProfilePicture,
                   Name = $"{createBuyerModel.FirstName} {createBuyerModel.LastName}",
                   PhoneNumber = createBuyerModel.PhoneNumber,
                   FullAddress = createBuyerModel.FullAddress,
@@ -136,7 +139,7 @@ public class BuyerService : IBuyerService
             }
               var buyer = nonActiveBuyers.Select(a => new BuyerDto{
                   UserName = a.User.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(a.User.ProfilePicture,"Profile Picture"),
+                  ProfilePicture = a.User.ProfilePicture,
                   Name = a.User.Name,
                   PhoneNumber = a.User.PhoneNumber,
                   FullAddress = a.User.Address.FullAddress ,
@@ -165,7 +168,7 @@ public class BuyerService : IBuyerService
             }
               var buyerr = ActiveBuyers.Select(a => new BuyerDto{
                   UserName = a.User.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(a.User.ProfilePicture,"Profile Picture"),
+                  ProfilePicture = a.User.ProfilePicture,
                   Name = a.User.Name,
                   PhoneNumber = a.User.PhoneNumber,
                   FullAddress = a.User.Address.FullAddress ,
@@ -207,7 +210,7 @@ public class BuyerService : IBuyerService
             }
               var buyer = buyers.Select(a => new BuyerDto{
                   UserName = a.User.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(a.User.ProfilePicture,"Profile Picture"),
+                  ProfilePicture = a.User.ProfilePicture,
                   Name = a.User.Name,
                   PhoneNumber = a.User.PhoneNumber,
                   FullAddress = a.User.Address.FullAddress ,
@@ -246,7 +249,7 @@ public class BuyerService : IBuyerService
             {
                   buyerDto.Id = buyer.User.Id;
                   buyerDto.UserName = buyer.User.UserName;
-                  buyerDto. ProfilePicture =  ConvertToByteArrays.ConverToIFormFile(buyer.User.ProfilePicture,"Profile Picture");
+                  buyerDto. ProfilePicture =  buyer.User.ProfilePicture;
                   buyerDto.Name =  buyer.User.Name;
                   buyerDto.PhoneNumber =  buyer.User.PhoneNumber;
                   buyerDto.FullAddress =  buyer.User.Address.FullAddress ;
@@ -283,7 +286,7 @@ public class BuyerService : IBuyerService
             var buyerDto = new BuyerDto{
                      Id = buyer.User.Id,
                      UserName = buyer.User.UserName,
-                     ProfilePicture =  ConvertToByteArrays.ConverToIFormFile(buyer.User.ProfilePicture,"Profile Picture"),
+                     ProfilePicture =  buyer.User.ProfilePicture,
                      Name =  buyer.User.Name,
                      PhoneNumber =  buyer.User.PhoneNumber,
                      FullAddress =  buyer.User.Address.FullAddress ,
@@ -320,7 +323,7 @@ public class BuyerService : IBuyerService
             }
               var buyer = buyers.Select(a => new BuyerDto{
                   UserName = a.User.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(a.User.ProfilePicture,"Profile Picture"),
+                  ProfilePicture = a.User.ProfilePicture,
                   Name = a.User.Name,
                   PhoneNumber = a.User.PhoneNumber,
                   FullAddress = a.User.Address.FullAddress ,

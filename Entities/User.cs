@@ -4,7 +4,7 @@ namespace AgroExpressAPI.Entities
     {
             public string Id{get; set;} = Guid.NewGuid().ToString();
         public string UserName{get; set;}
-        public byte[]? ProfilePicture{get; set;}
+        public string? ProfilePicture{get; set;}
         public string Name{get; set;}
         public string PhoneNumber{get; set;}
         public string AddressId {get; set;}
@@ -16,7 +16,7 @@ namespace AgroExpressAPI.Entities
         public bool IsActive{get; set;}
             public bool IsRegistered{get; set;}
             public bool Haspaid{get; set;}
-            public bool Due{get; set;}
+            public bool Due{get; set;}  
         public DateTime DateCreated{get; set;}
             public DateTime? DateModified{get; set;}
         public Admin Admin{get; set;}

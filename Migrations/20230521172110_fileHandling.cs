@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AgroExpressAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class fileHandling : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,7 +52,7 @@ namespace AgroExpressAPI.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false),
                     UserName = table.Column<string>(type: "longtext", nullable: true),
-                    ProfilePicture = table.Column<byte[]>(type: "longblob", nullable: true),
+                    ProfilePicture = table.Column<string>(type: "longtext", nullable: true),
                     Name = table.Column<string>(type: "longtext", nullable: true),
                     PhoneNumber = table.Column<string>(type: "longtext", nullable: true),
                     AddressId = table.Column<string>(type: "varchar(255)", nullable: true),
@@ -217,7 +217,7 @@ namespace AgroExpressAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AddressId", "DateCreated", "DateModified", "Due", "Email", "Gender", "Haspaid", "IsActive", "IsRegistered", "Name", "Password", "PhoneNumber", "ProfilePicture", "Role", "UserName" },
-                values: new object[] { "37846734-732e-4149-8cec-6f43d1eb3f60", "cc7578e3-52a9-49e9-9788-2da54df19f38", new DateTime(2023, 4, 28, 0, 0, 11, 89, DateTimeKind.Local).AddTicks(4399), null, true, "tijaniadebayoabdllahi@gmail.com", "Male", true, true, true, "Adebayo Addullah", "$2b$10$Ts/MKl2xLiniCgt8Ma.0iu/e2RA48yVZzdaU3CEIjNEmHcAbBZ23q", "08087054632", null, "Admin", "Modrator" });
+                values: new object[] { "37846734-732e-4149-8cec-6f43d1eb3f60", "cc7578e3-52a9-49e9-9788-2da54df19f38", new DateTime(2023, 5, 21, 18, 21, 10, 247, DateTimeKind.Local).AddTicks(2565), null, true, "tijaniadebayoabdllahi@gmail.com", "Male", true, true, true, "Adebayo Addullah", "$2b$10$11s7SA72IZh1xxraUNfRT.6xbGHbDBwfRtbIa307ixS1ixwKEK5L2", "08087054632", null, "Admin", "Modrator" });
 
             migrationBuilder.InsertData(
                 table: "Admins",

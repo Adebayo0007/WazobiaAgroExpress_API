@@ -41,6 +41,33 @@ namespace AgroExpressAPI.Controllers;
             if(!(buyerExist))
             {
 
+             //handling the files in coming from the request
+                var files = HttpContext.Request.Form;
+                if (files != null && files.Count > 0)
+                {
+                    string imageDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images");
+                    if(!Directory.Exists(imageDirectory))Directory.CreateDirectory(imageDirectory);
+                    foreach (var file in files.Files)
+                    {
+                        FileInfo info = new FileInfo(file.FileName);
+                        var extension = info.Extension;
+                        string[] extensions =  new string[]{".png",".jpeg",".jpg",".gif",".tif"};
+                        bool check = false;
+                        foreach(var ex in extensions)
+                        {
+                            if(extension == ex) check = true;
+                        }
+                        if(check == false) return BadRequest("The type of your profile picture is not accepted");
+                        if(file.Length > 20480) return BadRequest("accepted profile picture must not be more than 20KB");
+                        string image = Guid.NewGuid().ToString() + info.Extension;
+                        string path = Path.Combine(imageDirectory, image);
+                        using(var filestream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(filestream);
+                        }
+                        buyerModel.ProfilePicture = (image);
+                    }
+                }
                         var buyer = await _buyerService.CreateAsync(buyerModel);
 
                         if(buyer.IsSuccess == false)
@@ -92,7 +119,7 @@ namespace AgroExpressAPI.Controllers;
 
 
           [HttpPut("UpdateBuyer/{id}")]
-          [ValidateAntiForgeryToken]
+        //   [ValidateAntiForgeryToken]
          public async Task<IActionResult> UpdateBuyer(UpdateBuyerRequestModel requestModel,string id)
         {
               if(string.IsNullOrWhiteSpace(requestModel.Email)) requestModel.Email = User.FindFirst(ClaimTypes.Email).Value;
@@ -126,8 +153,8 @@ namespace AgroExpressAPI.Controllers;
         }
 
 
-         [HttpPost("SearchBuyers")]
-         public async Task<IActionResult> SearchBuyers(string searchInput)
+         [HttpGet("SearchBuyers/{searchInput}")]
+         public async Task<IActionResult> SearchBuyers([FromRoute]string searchInput)
         {
              if(string.IsNullOrWhiteSpace(searchInput)) return BadRequest();
              var buyers = await _buyerService.SearchBuyerByEmailOrUserName(searchInput);

@@ -47,7 +47,7 @@ namespace AgroExpressAPI.Repositories.Implementations;
         public async Task<IEnumerable<Buyer>> SearchBuyerByEmailOrUsername(string searchInput)
         {
             var input = searchInput.ToLower().Trim();
-            var searchedOutput = await _applicationDbContext.Buyers.Include(b => b.User).ThenInclude(b => b.Address).Where(b => b.User.Email  == input || b.User.UserName == input).ToListAsync();
+            var searchedOutput = await _applicationDbContext.Buyers.Include(b => b.User).ThenInclude(b => b.Address).Where(b => b.User.Email.ToLower()  == input || b.User.UserName.ToLower() == input).ToListAsync();
             return searchedOutput;
         }
 

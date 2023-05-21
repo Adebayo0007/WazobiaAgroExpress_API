@@ -43,7 +43,7 @@ public class FarmerService : IFarmerService
                   };
             var user = new User{
                   UserName = createFarmerModel.UserName.Trim(),
-                  ProfilePicture = ConvertToByteArrays.ToBytearray(createFarmerModel.ProfilePicture),
+                  ProfilePicture = createFarmerModel.ProfilePicture,
                   Name = $"{createFarmerModel.FirstName} {createFarmerModel.LastName}",
                   PhoneNumber = createFarmerModel.PhoneNumber,
                   Address = address,
@@ -91,7 +91,7 @@ public class FarmerService : IFarmerService
 
              var farmerDto = new FarmerDto{
                   UserName = createFarmerModel.UserName,
-                  ProfilePicture = createFarmerModel.ProfilePicture,
+                //   ProfilePicture = createFarmerModel.ProfilePicture,
                   Name = $"{createFarmerModel.FirstName} {createFarmerModel.LastName}",
                   PhoneNumber = createFarmerModel.PhoneNumber,
                   FullAddress = createFarmerModel.FullAddress,
@@ -139,7 +139,7 @@ public class FarmerService : IFarmerService
             }
               var farmer = farmers.Select(a => new FarmerDto{
                   UserName = a.User.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(a.User.ProfilePicture,"Profile Picture"),
+                  ProfilePicture = a.User.ProfilePicture,
                   Name = a.User.Name,
                   PhoneNumber = a.User.PhoneNumber,
                   FullAddress = a.User.Address.FullAddress ,
@@ -176,7 +176,7 @@ public class FarmerService : IFarmerService
               var farmer = nonActiveFarmers.Select(a => new FarmerDto{
                   Id = a.Id,
                   UserName = a.User.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(a.User.ProfilePicture, "Profile Picture"),
+                  ProfilePicture = a.User.ProfilePicture,
                   Name = a.User.Name,
                   PhoneNumber = a.User.PhoneNumber,
                   FullAddress = a.User.Address.FullAddress ,
@@ -206,7 +206,7 @@ public class FarmerService : IFarmerService
               var farmerr = ActiveFarmers.Select(a => new FarmerDto{
                   Id = a.Id,
                   UserName = a.User.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(a.User.ProfilePicture,"Profile Picture"),
+                  ProfilePicture = a.User.ProfilePicture,
                   Name = a.User.Name,
                   PhoneNumber = a.User.PhoneNumber,
                   FullAddress = a.User.Address.FullAddress ,
@@ -253,7 +253,7 @@ public class FarmerService : IFarmerService
             {
                   farmerDto.Id = farmer.User.Id;
                   farmerDto.UserName = farmer.User.UserName;
-                  farmerDto. ProfilePicture =  ConvertToByteArrays.ConverToIFormFile(farmer.User.ProfilePicture,"Profile Picture");
+                  farmerDto. ProfilePicture = farmer.User.ProfilePicture;
                   farmerDto.Name =  farmer.User.Name;
                   farmerDto.PhoneNumber =  farmer.User.PhoneNumber;
                   farmerDto.FullAddress =  farmer.User.Address.FullAddress ;
@@ -290,7 +290,7 @@ public class FarmerService : IFarmerService
             var farmerDto = new FarmerDto{
                     Id = farmer.Id,
                      UserName = farmer.User.UserName,
-                     ProfilePicture =  ConvertToByteArrays.ConverToIFormFile(farmer.User.ProfilePicture, "Profile Picture"),
+                     ProfilePicture =  farmer.User.ProfilePicture,
                      Name =  farmer.User.Name,
                      PhoneNumber =  farmer.User.PhoneNumber,
                      FullAddress =  farmer.User.Address.FullAddress ,
@@ -378,7 +378,7 @@ public class FarmerService : IFarmerService
             }
               var farmer = farmers.Select(a => new FarmerDto{
                   UserName = a.User.UserName,
-                  ProfilePicture = ConvertToByteArrays.ConverToIFormFile(a.User.ProfilePicture, "Profile picture"),
+                  ProfilePicture = a.User.ProfilePicture,
                   Name = a.User.Name,
                   PhoneNumber = a.User.PhoneNumber,
                   FullAddress = a.User.Address.FullAddress ,
