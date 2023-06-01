@@ -418,7 +418,7 @@ namespace AgroExpressAPI.Services.Implementations;
 
         public Task UpdatingToHasPaid(string email)
         {
-           email = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value;
+           email =   string.IsNullOrWhiteSpace(email) ? _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value : email;
           var user = _userRepository.GetByEmailAsync(email);
           user.Haspaid = true;
           _userRepository.Update(user);

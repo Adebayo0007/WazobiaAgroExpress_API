@@ -3,6 +3,7 @@ using System;
 using AgroExpressAPI.ApplicationContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgroExpressAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230524142824_fileHandlings")]
+    partial class fileHandlings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,11 +137,11 @@ namespace AgroExpressAPI.Migrations
                     b.Property<string>("FarmerUserName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("FirstDimentionPicture")
-                        .HasColumnType("longtext");
+                    b.Property<byte[]>("FirstDimentionPicture")
+                        .HasColumnType("longblob");
 
-                    b.Property<string>("ForthDimentionPicture")
-                        .HasColumnType("longtext");
+                    b.Property<byte[]>("ForthDimentionPicture")
+                        .HasColumnType("longblob");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("tinyint(1)");
@@ -161,11 +164,11 @@ namespace AgroExpressAPI.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("SecondDimentionPicture")
-                        .HasColumnType("longtext");
+                    b.Property<byte[]>("SecondDimentionPicture")
+                        .HasColumnType("longblob");
 
-                    b.Property<string>("ThirdDimentionPicture")
-                        .HasColumnType("longtext");
+                    b.Property<byte[]>("ThirdDimentionPicture")
+                        .HasColumnType("longblob");
 
                     b.Property<int>("ThumbDown")
                         .HasColumnType("int");
@@ -329,15 +332,15 @@ namespace AgroExpressAPI.Migrations
                         {
                             Id = "37846734-732e-4149-8cec-6f43d1eb3f60",
                             AddressId = "cc7578e3-52a9-49e9-9788-2da54df19f38",
-                            DateCreated = new DateTime(2023, 5, 25, 19, 29, 21, 100, DateTimeKind.Local).AddTicks(2491),
+                            DateCreated = new DateTime(2023, 5, 24, 15, 28, 23, 777, DateTimeKind.Local).AddTicks(3952),
                             Due = true,
                             Email = "tijaniadebayoabdllahi@gmail.com",
                             Gender = "Male",
-                            Haspaid = true,
+                            Haspaid = false,
                             IsActive = true,
                             IsRegistered = true,
                             Name = "Adebayo Addullah",
-                            Password = "$2b$10$g/pHoM0xbbZrImtT71rioeRfKVCSLaEwdOuZrUnioqXf4tuZ7Ltv2",
+                            Password = "$2b$10$dUPuff9WJwLpFQp0lCzAFeLSaxHkgaqmDWCojsOHtdzWIqo/sPeHi",
                             PhoneNumber = "08087054632",
                             Role = "Admin",
                             UserName = "Modrator"

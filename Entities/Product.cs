@@ -4,10 +4,10 @@ namespace AgroExpressAPI.Entities;
           public string Id{get; set;} = Guid.NewGuid().ToString();
       public string FarmerId{get; set;} 
       public Farmer Farmer{get; set;}
-      public byte[] FirstDimentionPicture{get; set;}
-      public byte[] SecondDimentionPicture{get; set;}
-      public byte[] ThirdDimentionPicture{get; set;}
-      public byte[] ForthDimentionPicture{get; set;}
+      public string FirstDimentionPicture{get; set;}
+      public string SecondDimentionPicture{get; set;}
+      public string ThirdDimentionPicture{get; set;}
+      public string ForthDimentionPicture{get; set;}
       public string ProductName{get; set;}
       public string FarmerUserName{get; set;}
       public string FarmerEmail{get; set;}

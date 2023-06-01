@@ -53,10 +53,10 @@ public class ProductService : IProductService
 
             var product = new Product{
                  FarmerId = farmer.Id,
-                 FirstDimentionPicture = ConvertToByteArrays.ToBytearray(productModel.FirstDimentionPicture),
-                 SecondDimentionPicture = ConvertToByteArrays.ToBytearray(productModel.SecondDimentionPicture),
-                 ThirdDimentionPicture = ConvertToByteArrays.ToBytearray(productModel.ThirdDimentionPicture),
-                 ForthDimentionPicture = ConvertToByteArrays.ToBytearray(productModel.ForthDimentionPicture),
+                 FirstDimentionPicture = productModel.FirstDimentionPicture,
+                 SecondDimentionPicture = productModel.SecondDimentionPicture,
+                 ThirdDimentionPicture = productModel.ThirdDimentionPicture,
+                 ForthDimentionPicture = productModel.ForthDimentionPicture,
                  ProductName = productModel.ProductName.Trim(),
                  FarmerUserName = farmer.User.UserName,
                  FarmerEmail = farmer.User.Email,

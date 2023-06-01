@@ -3,10 +3,10 @@ namespace AgroExpressAPI.Dtos.Product;
     {
       public string Id{get; set;}
       public string FarmerId{get; set;} 
-      public byte[] FirstDimentionPicture{get; set;}
-      public byte[] SecondDimentionPicture{get; set;}
-      public byte[] ThirdDimentionPicture{get; set;}
-      public byte[] ForthDimentionPicture{get; set;}
+      public string FirstDimentionPicture{get; set;}
+      public string SecondDimentionPicture{get; set;}
+      public string ThirdDimentionPicture{get; set;}
+      public string ForthDimentionPicture{get; set;}
       public string ProductName{get; set;}
       public int Quantity{get; set;}
       public double Price{get; set;}

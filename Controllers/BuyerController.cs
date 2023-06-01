@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using AgroExpressAPI.Conversion;
 using AgroExpressAPI.Dtos.Buyer;
 using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -53,9 +52,9 @@ namespace AgroExpressAPI.Controllers;
                         var extension = info.Extension;
                         string[] extensions =  new string[]{".png",".jpeg",".jpg",".gif",".tif"};
                         bool check = false;
-                        foreach(var ex in extensions)
+                        foreach(var ext in extensions)
                         {
-                            if(extension == ex) check = true;
+                            if(extension == ext) check = true;
                         }
                         if(check == false) return BadRequest("The type of your profile picture is not accepted");
                         if(file.Length > 20480) return BadRequest("accepted profile picture must not be more than 20KB");

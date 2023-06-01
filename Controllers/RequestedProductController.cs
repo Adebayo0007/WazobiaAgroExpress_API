@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using AgroExpressAPI.Dtos.RequestedProduct;
+using AgroExpressAPI.Email;
 using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +9,19 @@ namespace AgroExpressAPI.Controllers;
    [ApiController]
     public class RequestedProductController : ControllerBase
     {
-          private readonly IRequestedProductService _requstedProductService;
-           private readonly IProductService _productService;
+             private readonly IRequestedProductService _requstedProductService;
+             private readonly IProductService _productService;
              private readonly IUserService _userService;
              private readonly ITransactionService _transactionService;
+             private readonly IEmailSender _emailSender;
              
-        public RequestedProductController(IRequestedProductService requstedProductService, IProductService productService, IUserService userService, ITransactionService transactionService)
+        public RequestedProductController(IRequestedProductService requstedProductService, IProductService productService, IUserService userService, ITransactionService transactionService, IEmailSender emailSender)
         {
             _requstedProductService = requstedProductService;
             _productService = productService;
             _userService = userService;
             _transactionService = transactionService;
+            _emailSender = emailSender;
         }
 
        
@@ -31,20 +34,18 @@ namespace AgroExpressAPI.Controllers;
                 string response1 = "Invalid input,check your input very well";
                 return BadRequest(response1);
             }
-            requestedModel.BuyerEmail = User.FindFirst(ClaimTypes.Email).Value;
+            var mail = User.FindFirst(ClaimTypes.Email).Value;
+            requestedModel.BuyerEmail = mail;
             requestedModel.ProductId = requestId;
-            //  var userEmail = requestedModel.BuyerEmail;
            var user = await _userService.GetByEmailAsync(requestedModel.BuyerEmail);
-           if(user.Data.Haspaid == true)
-           {
-                    var product =  await  _requstedProductService.CreateRequstedProductAsync(requestId,requestedModel);
+           if(user.Data.Haspaid == false)
+           { 
+              return BadRequest();
+           }
+                   var product =  await  _requstedProductService.CreateRequstedProductAsync(requestId,requestedModel);
                     //  var product =  await  _transactionService.MakePayment(requestedModel);
                     if(product.IsSuccess != true) return BadRequest(product);
-                    return Ok(product);  
-
-           }
-           string response = "you are yet to pay request token";
-            return BadRequest(response);
+                    return Ok(product);     
          }
 
 
@@ -81,7 +82,7 @@ namespace AgroExpressAPI.Controllers;
         [HttpPatch("DeliveredRequest/{requestId}")]
          public async Task<IActionResult> DeliveredRequest([FromRoute]string requestId)
          {
-            if(requestId != null)
+            if(!string.IsNullOrWhiteSpace(requestId))
             {
                 await _requstedProductService.ProductDelivered(requestId);
                 string response = "Thank You !";
@@ -103,7 +104,7 @@ namespace AgroExpressAPI.Controllers;
            [HttpPatch("AcceptRequest/{requestId}")]
            public async Task<IActionResult> AcceptRequest([FromRoute]string requestId)
          {
-            if(requestId != null)
+            if(string.IsNullOrWhiteSpace(requestId))
             {
                 var product = await _requstedProductService.ProductAccepted(requestId);
                 Ok(product);

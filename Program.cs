@@ -32,13 +32,13 @@ builder.Services.AddCors(a => a.AddPolicy("CorsPolicy", b =>
  }));  //Adding a policy to an End-point or Controller
 
 
- builder.Services.AddHttpContextAccessor();
+   builder.Services.AddHttpContextAccessor();
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
     builder.Services.AddScoped<IUserRepository , UserRepository>();
     builder.Services.AddScoped<IUserService , UserService>();
 
-  builder.Services.AddScoped<IAdminRepository , AdminRepository>();
+    builder.Services.AddScoped<IAdminRepository , AdminRepository>();
     builder.Services.AddScoped<IAdminService , AdminService>();
 
    builder.Services.AddScoped<IFarmerRepository , FarmerRepository>();
@@ -107,6 +107,7 @@ app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+//cancellation token for long proccesses
 app.MapGet("/hello", async (CancellationToken token) =>{
     app.Logger.LogInformation("Request started at: " +
     DateTime.Now.ToLongTimeString());

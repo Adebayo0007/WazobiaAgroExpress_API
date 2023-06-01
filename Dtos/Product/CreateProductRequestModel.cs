@@ -5,18 +5,15 @@ namespace AgroExpressAPI.Dtos.Product;
     public class CreateProductRequestModel
     {
       
-      [Required]
+    
       [DisplayName("Front View")]
-      public IFormFile FirstDimentionPicture{get; set;}
-       [Required]
+      public string FirstDimentionPicture{get; set;}
         [DisplayName("BackView")]
-      public IFormFile SecondDimentionPicture{get; set;}
-       [Required]
+      public string SecondDimentionPicture{get; set;}
         [DisplayName("Right View")]
-      public IFormFile ThirdDimentionPicture{get; set;}
-       [Required]
+      public string ThirdDimentionPicture{get; set;}
         [DisplayName("Left View")]
-      public IFormFile ForthDimentionPicture{get; set;}
+      public string ForthDimentionPicture{get; set;}
        [Required]
         [DisplayName("Product Name")]
       public string ProductName{get; set;}

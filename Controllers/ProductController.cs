@@ -8,9 +8,11 @@ namespace AgroExpressAPI.Controllers;
     public class ProductController : ControllerBase
     {
          private readonly IProductService _productService;
-        public ProductController(IProductService productSercice)
+         private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IProductService productSercice, IWebHostEnvironment webHostEnvironment)
         {
-            _productService = productSercice;   
+            _productService = productSercice;  
+            _webHostEnvironment = webHostEnvironment; 
         }
        
          [HttpPost("CreateProduct")]
@@ -22,6 +24,44 @@ namespace AgroExpressAPI.Controllers;
                 string response = "Invalid input,check your input very well";
                 return BadRequest(response);
             }   
+                  //handling the files in coming from the request
+                   IList<string> dimentions =  new List<string>();
+                   var files = HttpContext.Request.Form;
+                if (files != null && files.Count > 0)
+                {
+                    string imageDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "products");
+                    if(!Directory.Exists(imageDirectory))Directory.CreateDirectory(imageDirectory);
+                    foreach (var file in files.Files)
+                    {
+                        FileInfo info = new FileInfo(file.FileName);
+                        var extension = info.Extension;
+                        string[] extensions =  new string[]{".png",".jpeg",".jpg",".gif",".tif"};
+                        bool check = false;
+                        foreach(var ext in extensions)
+                        {
+                            if(extension == ext) check = true;
+                        }
+                        if(check == false) return BadRequest("The type of your picture is not accepted");
+                        if(file.Length > 20480) return BadRequest("accepted picture must not be more than 20KB");
+                        string image = Guid.NewGuid().ToString() + info.Extension;
+                        string path = Path.Combine(imageDirectory, image);
+                        using(var filestream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(filestream);
+                        }
+                        dimentions.Add(image);
+                         
+                    }
+                  
+                }
+            
+                      for(int x = 0; x < 4; x++)
+                         {
+                          if(x == 0)model.FirstDimentionPicture = dimentions[x];
+                          if(x == 1)model.SecondDimentionPicture = dimentions[x];
+                          if(x == 2)model.ThirdDimentionPicture = dimentions[x] ;
+                          if(x == 3)model.ForthDimentionPicture = dimentions[x] ;
+                         }
             var product = await _productService.CreateProductAsync(model);
             if(product.IsSuccess == false) return BadRequest(product);
             return Ok(product);
