@@ -15,7 +15,6 @@ namespace AgroExpressAPI.Controllers;
         {
             _adminService = adminService;
             _webHostEnvironment = webHostEnvironment;
-            
         }
 
           [HttpGet("AdminProfile/{adminEmail}")]
@@ -38,7 +37,7 @@ namespace AgroExpressAPI.Controllers;
              return Ok(admin);
         }
         
-        [Authorize()]
+        
          [HttpGet("GetAdminByEmail/{adminEmail}")]
         public async Task<IActionResult> GetAdminByEmail([FromRoute]string adminEmail)
         {       

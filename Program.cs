@@ -70,7 +70,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-var key = "Wazobia Authorization key";
+var key = builder.Configuration.GetValue<string>("JWTConnectionKey:JWTKey");
 builder.Services.AddSingleton<IJWTAuthentication>(new JWTAuthentication(key));
 
 builder.Services.AddAuthentication(x =>

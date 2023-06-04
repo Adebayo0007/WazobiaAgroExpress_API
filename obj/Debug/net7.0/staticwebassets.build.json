@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dSTZ5WwXl0qfio9PnMnzpdP8m3M6s3Xb9TOWKgsjMDw=",
+  "Hash": "njfyDIfD83D+SUcGwWBteFlIdxFpPvI9LEeERhdWq3M=",
   "Source": "AgroExpressAPI",
   "BasePath": "_content/AgroExpressAPI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "AgroExpressAPI\\wwwroot",
       "Source": "AgroExpressAPI",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\agrologo.png",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\agrologo.png",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "agrologo.png",
       "AssetKind": "All",
@@ -34,10 +34,27 @@
       "OriginalItemSpec": "wwwroot\\agrologo.png"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\Images\\3705b539-bc42-4163-a4e2-f56b205253c7.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\Images\\0945cb11-5736-4e71-8708-f43aac37489e.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
+      "BasePath": "_content/AgroExpressAPI",
+      "RelativePath": "Images/0945cb11-5736-4e71-8708-f43aac37489e.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\0945cb11-5736-4e71-8708-f43aac37489e.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\Images\\3705b539-bc42-4163-a4e2-f56b205253c7.jpeg",
+      "SourceId": "AgroExpressAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "Images/3705b539-bc42-4163-a4e2-f56b205253c7.jpeg",
       "AssetKind": "All",
@@ -51,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\3705b539-bc42-4163-a4e2-f56b205253c7.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\Images\\3eadae5a-79d9-4b83-8f2c-01bf89f89148.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\Images\\3eadae5a-79d9-4b83-8f2c-01bf89f89148.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "Images/3eadae5a-79d9-4b83-8f2c-01bf89f89148.jpeg",
       "AssetKind": "All",
@@ -68,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\3eadae5a-79d9-4b83-8f2c-01bf89f89148.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\Images\\97b208f1-6200-4a64-b2b3-cd1e81b8b8c0.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\Images\\97b208f1-6200-4a64-b2b3-cd1e81b8b8c0.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "Images/97b208f1-6200-4a64-b2b3-cd1e81b8b8c0.jpeg",
       "AssetKind": "All",
@@ -85,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\97b208f1-6200-4a64-b2b3-cd1e81b8b8c0.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\Images\\a8483660-45bf-4385-b9f3-798ebdc02aaa.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\Images\\a8483660-45bf-4385-b9f3-798ebdc02aaa.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "Images/a8483660-45bf-4385-b9f3-798ebdc02aaa.jpeg",
       "AssetKind": "All",
@@ -102,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\a8483660-45bf-4385-b9f3-798ebdc02aaa.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\Images\\e8f07e20-7c6e-4b57-932e-b8c5d91678f1.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\Images\\e8f07e20-7c6e-4b57-932e-b8c5d91678f1.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "Images/e8f07e20-7c6e-4b57-932e-b8c5d91678f1.jpeg",
       "AssetKind": "All",
@@ -119,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\Images\\e8f07e20-7c6e-4b57-932e-b8c5d91678f1.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\06e99aad-c050-4815-a3b0-1a972a61088c.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\06e99aad-c050-4815-a3b0-1a972a61088c.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/06e99aad-c050-4815-a3b0-1a972a61088c.jpeg",
       "AssetKind": "All",
@@ -136,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\products\\06e99aad-c050-4815-a3b0-1a972a61088c.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\120a8ff2-7bbf-4abf-9cdb-b859144c6399.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\120a8ff2-7bbf-4abf-9cdb-b859144c6399.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/120a8ff2-7bbf-4abf-9cdb-b859144c6399.jpeg",
       "AssetKind": "All",
@@ -153,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\products\\120a8ff2-7bbf-4abf-9cdb-b859144c6399.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\1d8fc8cb-eea4-4367-b612-964460e198d4.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\1d8fc8cb-eea4-4367-b612-964460e198d4.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/1d8fc8cb-eea4-4367-b612-964460e198d4.jpeg",
       "AssetKind": "All",
@@ -170,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\products\\1d8fc8cb-eea4-4367-b612-964460e198d4.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\2276940e-9ad4-4df5-a1ed-500fed875f26.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\2276940e-9ad4-4df5-a1ed-500fed875f26.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/2276940e-9ad4-4df5-a1ed-500fed875f26.jpeg",
       "AssetKind": "All",
@@ -187,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\products\\2276940e-9ad4-4df5-a1ed-500fed875f26.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\2953e429-6651-495e-8918-c007f1a93851.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\2953e429-6651-495e-8918-c007f1a93851.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/2953e429-6651-495e-8918-c007f1a93851.jpeg",
       "AssetKind": "All",
@@ -204,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\products\\2953e429-6651-495e-8918-c007f1a93851.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\297cb872-df5b-46bb-8bcf-83e5870fd22b.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\297cb872-df5b-46bb-8bcf-83e5870fd22b.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/297cb872-df5b-46bb-8bcf-83e5870fd22b.jpeg",
       "AssetKind": "All",
@@ -221,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\products\\297cb872-df5b-46bb-8bcf-83e5870fd22b.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\317bf06a-a660-4ee1-8494-30aa3b55b143.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\317bf06a-a660-4ee1-8494-30aa3b55b143.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/317bf06a-a660-4ee1-8494-30aa3b55b143.jpeg",
       "AssetKind": "All",
@@ -238,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\products\\317bf06a-a660-4ee1-8494-30aa3b55b143.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\3ccbf3ca-abaa-4ed5-a135-28236a8e6caa.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\3ccbf3ca-abaa-4ed5-a135-28236a8e6caa.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/3ccbf3ca-abaa-4ed5-a135-28236a8e6caa.jpeg",
       "AssetKind": "All",
@@ -255,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\products\\3ccbf3ca-abaa-4ed5-a135-28236a8e6caa.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\420c71b5-db78-4652-96a4-9c94298783ae.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\420c71b5-db78-4652-96a4-9c94298783ae.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/420c71b5-db78-4652-96a4-9c94298783ae.jpeg",
       "AssetKind": "All",
@@ -272,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\products\\420c71b5-db78-4652-96a4-9c94298783ae.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\4fe4d276-63c5-4645-bf80-123a34c13b6a.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\4fe4d276-63c5-4645-bf80-123a34c13b6a.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/4fe4d276-63c5-4645-bf80-123a34c13b6a.jpeg",
       "AssetKind": "All",
@@ -289,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\products\\4fe4d276-63c5-4645-bf80-123a34c13b6a.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\548a6c0e-4799-4c05-84cb-cf2c328268d7.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\548a6c0e-4799-4c05-84cb-cf2c328268d7.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/548a6c0e-4799-4c05-84cb-cf2c328268d7.jpeg",
       "AssetKind": "All",
@@ -306,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\products\\548a6c0e-4799-4c05-84cb-cf2c328268d7.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\6b841c21-71cc-47ec-92f7-b0bc0c87ba60.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\6b841c21-71cc-47ec-92f7-b0bc0c87ba60.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/6b841c21-71cc-47ec-92f7-b0bc0c87ba60.jpeg",
       "AssetKind": "All",
@@ -323,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\products\\6b841c21-71cc-47ec-92f7-b0bc0c87ba60.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\6c9af0cd-da94-478c-96ca-8d3a8e06dffb.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\6c9af0cd-da94-478c-96ca-8d3a8e06dffb.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/6c9af0cd-da94-478c-96ca-8d3a8e06dffb.jpeg",
       "AssetKind": "All",
@@ -340,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\products\\6c9af0cd-da94-478c-96ca-8d3a8e06dffb.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\6fa2c4f6-5fd1-4806-b838-2d90f055177a.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\6fa2c4f6-5fd1-4806-b838-2d90f055177a.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/6fa2c4f6-5fd1-4806-b838-2d90f055177a.jpeg",
       "AssetKind": "All",
@@ -357,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\products\\6fa2c4f6-5fd1-4806-b838-2d90f055177a.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\7545d266-1fd9-440c-b144-966d85984b37.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\7545d266-1fd9-440c-b144-966d85984b37.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/7545d266-1fd9-440c-b144-966d85984b37.jpeg",
       "AssetKind": "All",
@@ -374,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\products\\7545d266-1fd9-440c-b144-966d85984b37.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\b748ee20-1cac-4274-9645-e61c319571f9.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\b748ee20-1cac-4274-9645-e61c319571f9.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/b748ee20-1cac-4274-9645-e61c319571f9.jpeg",
       "AssetKind": "All",
@@ -391,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\products\\b748ee20-1cac-4274-9645-e61c319571f9.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\c1d7fc78-0321-46ad-9cf5-e160a0913f85.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\c1d7fc78-0321-46ad-9cf5-e160a0913f85.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/c1d7fc78-0321-46ad-9cf5-e160a0913f85.jpeg",
       "AssetKind": "All",
@@ -408,10 +425,10 @@
       "OriginalItemSpec": "wwwroot\\products\\c1d7fc78-0321-46ad-9cf5-e160a0913f85.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\c29c5e73-10bd-4ef1-859b-88c8155743f0.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\c29c5e73-10bd-4ef1-859b-88c8155743f0.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/c29c5e73-10bd-4ef1-859b-88c8155743f0.jpeg",
       "AssetKind": "All",
@@ -425,10 +442,10 @@
       "OriginalItemSpec": "wwwroot\\products\\c29c5e73-10bd-4ef1-859b-88c8155743f0.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\e720865e-436b-4cdb-a817-536027648a6c.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\e720865e-436b-4cdb-a817-536027648a6c.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/e720865e-436b-4cdb-a817-536027648a6c.jpeg",
       "AssetKind": "All",
@@ -442,10 +459,10 @@
       "OriginalItemSpec": "wwwroot\\products\\e720865e-436b-4cdb-a817-536027648a6c.jpeg"
     },
     {
-      "Identity": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\products\\e7e4c001-3ee8-4802-a374-12c07c0492d5.jpeg",
+      "Identity": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\products\\e7e4c001-3ee8-4802-a374-12c07c0492d5.jpeg",
       "SourceId": "AgroExpressAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\wwwroot\\",
       "BasePath": "_content/AgroExpressAPI",
       "RelativePath": "products/e7e4c001-3ee8-4802-a374-12c07c0492d5.jpeg",
       "AssetKind": "All",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\AgroExpressAPI\\AgroExpressAPI.csproj": {}
+    "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\AgroExpressAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\AgroExpressAPI\\AgroExpressAPI.csproj": {
+    "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\AgroExpressAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\AgroExpressAPI.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\AgroExpressAPI.csproj",
         "projectName": "AgroExpressAPI",
-        "projectPath": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\AgroExpressAPI.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\AgroExpressAPI.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\AgroExpressAPI\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\FinalProject\\AgroExpressAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
