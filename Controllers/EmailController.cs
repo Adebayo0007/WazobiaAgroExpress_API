@@ -20,16 +20,16 @@ namespace AgroExpressAPI.Controllers;
              if(!ModelState.IsValid)
             {
                 string response1 = "Invalid input,check your input very well";
-                return BadRequest(response1);
+                return BadRequest(new{mesage = response1});
             }
             var result = await _emailSender.SendEmail(emailRequestModel);
             string response;
             if(result == true)
             {
                 response = "Email sent!";
-               return Ok(response);
+               return Ok(new{mesage = response});
             }
                response = "Email not sent!";
-               return BadRequest(response);
+               return BadRequest(new{mesage = response});
         }
     }

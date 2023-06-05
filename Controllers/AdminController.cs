@@ -54,7 +54,7 @@ namespace AgroExpressAPI.Controllers;
              if(!ModelState.IsValid)
             {
                 string response = "Invalid input,check your input very well";
-                return BadRequest(response);
+                return BadRequest(new{mesage = response});
             }
 
             if(string.IsNullOrWhiteSpace(requestModel.Email))

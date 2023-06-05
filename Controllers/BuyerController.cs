@@ -28,12 +28,12 @@ namespace AgroExpressAPI.Controllers;
             if(!ModelState.IsValid)
             {
                 string response = "Invalid input,check your input very well";
-                return BadRequest(response);
+                return BadRequest(new{mesage = response});
             }
             if(buyerModel.LocalGovernment == "--LGA--")
             {
                  string response = "Invalid Local Government";
-                return BadRequest(response);
+                return BadRequest(new{mesage = response});
             }
 
             var buyerExist = await _userService.ExistByEmailAsync(buyerModel.Email);
@@ -54,10 +54,10 @@ namespace AgroExpressAPI.Controllers;
                         bool check = false;
                         foreach(var ext in extensions)
                         {
-                            if(extension == ext) check = true;
+                            if(extension.Equals(ext)) check = true;
                         }
-                        if(check == false) return BadRequest("The type of your profile picture is not accepted");
-                        if(file.Length > 20480) return BadRequest("accepted profile picture must not be more than 20KB");
+                        if(check == false) return BadRequest(new{mesage = "The type of your profile picture is not accepted"} );
+                        if(file.Length > 20480) return BadRequest(new{mesage = "accepted profile picture must not be more than 20KB"});
                         string image = Guid.NewGuid().ToString() + info.Extension;
                         string path = Path.Combine(imageDirectory, image);
                         using(var filestream = new FileStream(path, FileMode.Create))
@@ -77,7 +77,7 @@ namespace AgroExpressAPI.Controllers;
                   return Ok(buyer);
             }
             string userExist = "user already exist ⚠";
-          return BadRequest(userExist);
+          return BadRequest(new{mesage = userExist});
             
         } 
 
