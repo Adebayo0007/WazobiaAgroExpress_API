@@ -12,14 +12,13 @@ namespace AgroExpressAPI.Controllers;
          private readonly IBuyerService _buyerService;
            private readonly IUserService _userService;
             private readonly IWebHostEnvironment _webHostEnvironment;
-        public BuyerController(IBuyerService buyerService, IUserService userService,IWebHostEnvironment webHostEnvironment)
+        public BuyerController(IBuyerService buyerService, IUserService userService, IWebHostEnvironment webHostEnvironment)
         {
             _buyerService = buyerService;
             _userService = userService;
             _webHostEnvironment = webHostEnvironment;
             
         }
-
 
          [HttpPost("CreateBuyer")]
          //[ValidateAntiForgeryToken]
@@ -42,32 +41,34 @@ namespace AgroExpressAPI.Controllers;
 
              //handling the files in coming from the request
                 var files = HttpContext.Request.Form;
-                if (files != null && files.Count > 0)
+            if (files != null && files.Count > 0)
+            {
+                string imageDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images");
+                if(!Directory.Exists(imageDirectory))Directory.CreateDirectory(imageDirectory);
+                foreach (var file in files.Files)
                 {
-                    string imageDirectory = Path.Combine(_webHostEnvironment.WebRootPath, "Images");
-                    if(!Directory.Exists(imageDirectory))Directory.CreateDirectory(imageDirectory);
-                    foreach (var file in files.Files)
+                    FileInfo info = new FileInfo(file.FileName);
+                    var extension = info.Extension;
+                    string[] extensions =  new string[]{".png",".jpeg",".jpg",".gif",".tif"};
+                    bool check = false;
+                    foreach(var ext in extensions)
                     {
-                        FileInfo info = new FileInfo(file.FileName);
-                        var extension = info.Extension;
-                        string[] extensions =  new string[]{".png",".jpeg",".jpg",".gif",".tif"};
-                        bool check = false;
-                        foreach(var ext in extensions)
-                        {
-                            if(extension.Equals(ext)) check = true;
-                        }
-                        if(check == false) return BadRequest(new{mesage = "The type of your profile picture is not accepted"} );
-                        if(file.Length > 20480) return BadRequest(new{mesage = "accepted profile picture must not be more than 20KB"});
-                        string image = Guid.NewGuid().ToString() + info.Extension;
-                        string path = Path.Combine(imageDirectory, image);
-                        using(var filestream = new FileStream(path, FileMode.Create))
-                        {
-                            file.CopyTo(filestream);
-                        }
-                        buyerModel.ProfilePicture = (image);
+                        if(extension.Equals(ext)) check = true;
                     }
+                    if(check == false) return BadRequest(new{mesage = "The type of your profile picture is not accepted"} );
+                    if(file.Length > 20480) return BadRequest(new{mesage = "accepted profile picture must not be more than 20KB"});
+                    string image = Guid.NewGuid().ToString() + info.Extension;
+                    string path = Path.Combine(imageDirectory, image);
+                    using(var filestream = new FileStream(path, FileMode.Create))
+                    {
+                        file.CopyTo(filestream);
+                    }
+                    buyerModel.ProfilePicture = (image);
                 }
-                        var buyer = await _buyerService.CreateAsync(buyerModel);
+            }
+        
+                     
+                      var buyer = await _buyerService.CreateAsync(buyerModel);
 
                         if(buyer.IsSuccess == false)
                         {

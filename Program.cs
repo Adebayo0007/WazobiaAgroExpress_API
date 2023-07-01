@@ -1,65 +1,16 @@
-using System.Security.Claims;
-using System.Text;
-using AgroExpressAPI.ApplicationAuthentication;
-using AgroExpressAPI.ApplicationContext;
-using AgroExpressAPI.Email;
-using AgroExpressAPI.Repositories.Implementations;
-using AgroExpressAPI.Repositories.Interfaces;
-using AgroExpressAPI.Services.Implementations;
-using AgroExpressAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using AgroExpressAPI.ProgramHelper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCors(a => a.AddPolicy("CorsPolicy", b => 
- {
-     //b.WithOrigins("http://localhost:5000/")
-     b.AllowAnyMethod()
-     .AllowAnyOrigin()
-     .AllowAnyHeader();
-     
- }));
+ProgrameHelperClass.CrossOriginPolicy(builder);//Cross origin Policy
 
+ProgrameHelperClass.AdminPolicy(builder);//Adding a policy to an End-point or Controller
 
- builder.Services.AddAuthorization( x =>
- x.AddPolicy("AdminPolicy", policy =>{
-    policy.RequireRole("Admin");
-    policy.RequireClaim(ClaimTypes.Email, new string[] {"tijaniadebayoabdllahi@gmail.com","johnwilson5864@gmail.com"});
-    
- }));  //Adding a policy to an End-point or Controller
+ProgrameHelperClass.AddingContextAccessor(builder);//Adding contect accessor to the container
 
-
-   builder.Services.AddHttpContextAccessor();
-    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-    builder.Services.AddScoped<IUserRepository , UserRepository>();
-    builder.Services.AddScoped<IUserService , UserService>();
-
-    builder.Services.AddScoped<IAdminRepository , AdminRepository>();
-    builder.Services.AddScoped<IAdminService , AdminService>();
-
-   builder.Services.AddScoped<IFarmerRepository , FarmerRepository>();
-    builder.Services.AddScoped<IFarmerService , FarmerService>();
-
-    builder.Services.AddScoped<IBuyerRepository , BuyerRepository>();
-    builder.Services.AddScoped<IBuyerService , BuyerService>();
-
-     builder.Services.AddScoped<IProductRepository , ProductRepository>();
-    builder.Services.AddScoped<IProductService , ProductService>();
-
-     builder.Services.AddScoped<IRequestedProductRepository , RequestedProductRepository>();
-    builder.Services.AddScoped<IRequestedProductService , RequestedProductService>();
-
-     builder.Services.AddScoped<ITransactionRepository , TransactionRepository>();
-    builder.Services.AddScoped<ITransactionService , TransactionService>();
-
-      builder.Services.AddScoped<IEmailSender , EmailSender>();
-builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseMySQL(
-  builder.Configuration.GetConnectionString("AgroExpressConnectionString")
-  ));
+ProgrameHelperClass.RegisteringAndSortingDependencies(builder);//Registering,sorting and determining the life cycle of dependencies
+ProgrameHelperClass.AddingDbContextToContainer(builder);// Adding BdContext class to the container
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -70,52 +21,15 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-var key = builder.Configuration.GetValue<string>("JWTConnectionKey:JWTKey");
-builder.Services.AddSingleton<IJWTAuthentication>(new JWTAuthentication(key));
+ProgrameHelperClass.AddingJWTConfigurationToContainer(builder);//Adding JWT Configuration to the container
 
-builder.Services.AddAuthentication(x =>
-{
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-    .AddJwtBearer(x =>
-    {
-        x.RequireHttpsMetadata = false;
-        x.SaveToken = true;
-        x.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-
-    });
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wazobia Agro Express v1"));
-}
-app.UseRouting();
-app.UseHttpsRedirection();
-app.UseCors("CorsPolicy");
-app.UseStaticFiles();
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapControllers();
-//cancellation token for long proccesses
-app.MapGet("/hello", async (CancellationToken token) =>{
-    app.Logger.LogInformation("Request started at: " +
-    DateTime.Now.ToLongTimeString());
-    await Task.Delay(TimeSpan.FromSeconds(5),token);
-    app.Logger.LogInformation("Request completed at: "+
-    DateTime.Now.ToLongTimeString());
-    return "Success";
-    
-});
+ProgrameHelperClass.HttpPipelineConfiguration(app);
+
 
 app.Run();
+
+

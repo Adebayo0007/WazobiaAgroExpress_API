@@ -9,13 +9,16 @@ namespace AgroExpressAPI.ApplicationAuthentication;
     public class JWTAuthentication : IJWTAuthentication
     {
         public string _key;
-        public JWTAuthentication(string key)
+        public IConfiguration _configuration;
+        public JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        public JWTAuthentication(string key, IConfiguration configuration = null)
         {
             _key = key;
+            _configuration = configuration;
         }
         public string GenerateToken(BaseResponse<UserDto> model)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
+             
             var tokenKey = Encoding.ASCII.GetBytes(_key);
              var claims = new List<Claim>();
              claims.Add(new Claim(ClaimTypes.NameIdentifier, model.Data.Id));                    
@@ -38,5 +41,18 @@ namespace AgroExpressAPI.ApplicationAuthentication;
             };
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 return tokenHandler.WriteToken(token);
+        }
+
+        public void TokenValidatorHandler(string tokenInput)
+        {
+            var key = _configuration.GetValue<string>("JWTConnectionKey:JWTKey");
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+            var principal = tokenHandler.ValidateToken(tokenInput, tokenValidationParameters, out var validatedToken);
         }
     }
