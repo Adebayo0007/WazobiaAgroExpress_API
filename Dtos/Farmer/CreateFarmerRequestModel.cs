@@ -17,7 +17,7 @@ namespace AgroExpressAPI.Dtos.Farmer;
         [DisplayName("Last Name")]
         public string LastName{get; set;}
        [Required]
-       [MaxLength(13)]
+       [MaxLength(14)]
        [MinLength(10)]
        [DisplayName("Display Name")]
         public string PhoneNumber{get; set;}
