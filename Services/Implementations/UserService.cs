@@ -1,7 +1,10 @@
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Dtos.User;
 using AgroExpressAPI.Email;
+using AgroExpressAPI.Entities;
 using AgroExpressAPI.Repositories.Interfaces;
 using AgroExpressAPI.Services.Interfaces;
 
@@ -39,23 +42,7 @@ namespace AgroExpressAPI.Services.Implementations;
                 
                 };  
             }
-              var user = users.Select(a => new UserDto{
-                  Id = a.Id,
-                  UserName = a.UserName,
-                  ProfilePicture = a.ProfilePicture,
-                  Name = a.Name,
-                  PhoneNumber = a.PhoneNumber,
-                  FullAddress = a.Address.FullAddress ,
-                  LocalGovernment = a.Address.LocalGovernment,
-                  State = a.Address.State,
-                  Gender = a.Gender,
-                  Email = a.Email,
-                  Password = a.Password,
-                  Role = a.Role,
-                  IsActive = a.IsActive,
-                  DateCreated = a.DateCreated,
-                  DateModified = a.DateModified
-            }).ToList();
+              var user = users.Select(a => UserDto(a)).ToList();
             return new BaseResponse<IEnumerable<UserDto>>
             {
                 Message = "List of Users 😎",
@@ -75,25 +62,10 @@ namespace AgroExpressAPI.Services.Implementations;
                     IsSuccess = false
                 };
             }
-            UserDto userDto = new UserDto();
+            UserDto userDto = null;
             if(user is not null)
             {
-                  userDto.Id = user.Id;
-                  userDto.UserName = user.UserName;
-                  userDto. ProfilePicture =  user.ProfilePicture;
-                  userDto.Name =  user.Name;
-                  userDto.PhoneNumber =  user.PhoneNumber;
-                  userDto.FullAddress =  user.Address.FullAddress ;
-                  userDto.LocalGovernment =  user.Address.LocalGovernment;
-                  userDto.State =  user.Address.State;
-                  userDto.Gender = user.Gender;
-                  userDto.Email = user.Email;
-                //   userDto.Password = user.Password;
-                  userDto.Role = user.Role;
-                  userDto.IsActive = user.IsActive;
-                  userDto.DateCreated = user.DateCreated;
-                  userDto.DateModified = user.DateModified;
-                  userDto.Haspaid = user.Haspaid;
+                  userDto = UserDto(user);
             }
             return new BaseResponse<UserDto>
             {
@@ -141,25 +113,11 @@ namespace AgroExpressAPI.Services.Implementations;
                {
                     if(user.Password == logInRequestMode.Password && user.Email == logInRequestMode.Email)
                     {
-                            UserDto userDto1 = new UserDto();
+                            UserDto userDto1 = null;
 
                         if(user is not null)
                         {
-                            userDto1.Id = user.Id;
-                            userDto1.UserName = user.UserName;
-                            userDto1. ProfilePicture =  user.ProfilePicture;
-                            userDto1.Name =  user.Name;
-                            userDto1.PhoneNumber =  user.PhoneNumber;
-                            userDto1.FullAddress =  user.Address.FullAddress ;
-                            userDto1.LocalGovernment =  user.Address.LocalGovernment;
-                            userDto1.State =  user.Address.State;
-                            userDto1.Gender = user.Gender;
-                            userDto1.Email = user.Email;
-                            //   userDto.Password = user.Password;
-                            userDto1.Role = user.Role;
-                            userDto1.IsActive = user.IsActive;
-                            userDto1.DateCreated = user.DateCreated;
-                            userDto1.DateModified = user.DateModified;
+                             userDto1 = UserDto(user);
                         }
 
                         return new BaseResponse<UserDto>
@@ -194,25 +152,11 @@ namespace AgroExpressAPI.Services.Implementations;
                 }
 
              
-                   UserDto userDto = new UserDto();
+                   UserDto userDto = null;
 
              if(user is not null)
             {
-                  userDto.Id = user.Id;
-                  userDto.UserName = user.UserName;
-                  userDto. ProfilePicture =  user.ProfilePicture;
-                  userDto.Name =  user.Name;
-                  userDto.PhoneNumber =  user.PhoneNumber;
-                  userDto.FullAddress =  user.Address.FullAddress ;
-                  userDto.LocalGovernment =  user.Address.LocalGovernment;
-                  userDto.State =  user.Address.State;
-                  userDto.Gender = user.Gender;
-                  userDto.Email = user.Email;
-                //   userDto.Password = user.Password;
-                  userDto.Role = user.Role;
-                  userDto.IsActive = user.IsActive;
-                  userDto.DateCreated = user.DateCreated;
-                  userDto.DateModified = user.DateModified;
+               userDto = UserDto(user);
             }
 
             return new BaseResponse<UserDto>
@@ -235,24 +179,7 @@ namespace AgroExpressAPI.Services.Implementations;
                     IsSuccess = false
                 };
             }
-            var userDto = new UserDto{
-                     Id = user.Id,
-                     UserName = user.UserName,
-                     ProfilePicture =  user.ProfilePicture,
-                     Name =  user.Name,
-                     PhoneNumber =  user.PhoneNumber,
-                     FullAddress =  user.Address.FullAddress ,
-                     LocalGovernment =  user.Address.LocalGovernment,
-                     State =  user.Address.State,
-                     Gender = user.Gender,
-                     Email = user.Email,
-                     Password = user.Password,
-                     Role = user.Role,
-                     IsActive = user.IsActive,
-                     DateCreated = user.DateCreated,
-                     DateModified = user.DateModified
-
-            };
+               var userDto = UserDto(user);
             return new BaseResponse<UserDto>
             {
                 Message = "User Found successfully",
@@ -300,10 +227,8 @@ namespace AgroExpressAPI.Services.Implementations;
             };
 
         }
-        public async Task<bool> ExistByEmailAsync(string userEmail)
-        {
-          return await _userRepository.ExistByEmailAsync(userEmail);
-        }
+        public async Task<bool> ExistByEmailAsync(string userEmail) =>
+          await _userRepository.ExistByEmailAsync(userEmail);
 
         public async Task<BaseResponse<IEnumerable<UserDto>>> SearchUserByEmailOrUserName(string searchInput)
         {
@@ -318,23 +243,7 @@ namespace AgroExpressAPI.Services.Implementations;
                 
                 };  
             }
-              var user = users.Select(a => new UserDto{
-                  Id = a.Id,
-                  UserName = a.UserName,
-                  ProfilePicture = a.ProfilePicture,
-                  Name = a.Name,
-                  PhoneNumber = a.PhoneNumber,
-                  FullAddress = a.Address.FullAddress ,
-                  LocalGovernment = a.Address.LocalGovernment,
-                  State = a.Address.State,
-                  Gender = a.Gender,
-                  Email = a.Email,
-                  Password = a.Password,
-                  Role = a.Role,
-                  IsActive = a.IsActive,
-                  DateCreated = a.DateCreated,
-                  DateModified = a.DateModified
-            }).ToList();
+              var user = users.Select(a => UserDto(a)).ToList();
             return new BaseResponse<IEnumerable<UserDto>>
             {
                 Message = "List of Users 😎",
@@ -356,23 +265,7 @@ namespace AgroExpressAPI.Services.Implementations;
                 
                 };  
             }
-              var user = users.Select(a => new UserDto{
-                  Id = a.Id,
-                  UserName = a.UserName,
-                  ProfilePicture = a.ProfilePicture,
-                  Name = a.Name,
-                  PhoneNumber = a.PhoneNumber,
-                  FullAddress = a.Address.FullAddress ,
-                  LocalGovernment = a.Address.LocalGovernment,
-                  State = a.Address.State,
-                  Gender = a.Gender,
-                  Email = a.Email,
-                  Password = a.Password,
-                  Role = a.Role,
-                  IsActive = a.IsActive,
-                  DateCreated = a.DateCreated,
-                  DateModified = a.DateModified
-            }).ToList();
+              var user = users.Select(a => UserDto(a)).ToList();
             return new BaseResponse<IEnumerable<UserDto>>
             {
                 Message = "List of Users 😎",
@@ -388,11 +281,11 @@ namespace AgroExpressAPI.Services.Implementations;
            _userRepository.Update(user);
 
             string gender = null;
-              if(user.Gender ==  "Male")
+              if(IsMale(user.Gender))
                {
                  gender="Mr";
                }
-               else if(user.Gender==  "Female")
+               else if(IsFeMale(user.Gender))
                {
                  gender="Mrs";
                }
@@ -441,4 +334,41 @@ namespace AgroExpressAPI.Services.Implementations;
                  }
                  return false;
         }
+    private UserDto UserDto(User user) =>
+        new UserDto()
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            ProfilePicture = user.ProfilePicture,
+            Name = user.Name,
+            PhoneNumber = user.PhoneNumber,
+            FullAddress = user.Address.FullAddress,
+            LocalGovernment = user.Address.LocalGovernment,
+            State = user.Address.State,
+            Gender = user.Gender,
+            Email = user.Email,
+            Role = user.Role,
+            IsActive = user.IsActive,
+            DateCreated = user.DateCreated,
+            DateModified = user.DateModified
+
+        };
+      public static bool IsMale(string str)
+        {
+            if(!str.Equals(null))
+            {
+              if(str.Equals("Male"))
+              return true;
+            }
+          return false;
+        }
+    public static bool IsFeMale(string str)
+    {
+        if (!str.Equals(null))
+        {
+            if (str.Equals("Female"))
+                return true;
+        }
+        return false;
     }
+}

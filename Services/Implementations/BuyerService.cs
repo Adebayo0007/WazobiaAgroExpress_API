@@ -1,4 +1,3 @@
-using AgroExpressAPI.Conversion;
 using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Dtos.AllBuyers;
 using AgroExpressAPI.Dtos.Buyer;
@@ -52,9 +51,9 @@ public class BuyerService : IBuyerService
                   Password = BCrypt.Net.BCrypt.HashPassword(createBuyerModel.Password),
                   Role = "Buyer",
                   IsActive = true,
-                   IsRegistered = false,
-                   Haspaid = false,
-                   Due = true,
+                  IsRegistered = false,
+                  Haspaid = false,
+                  Due = true,
                   DateCreated = DateTime.Now
 
             };
@@ -67,11 +66,11 @@ public class BuyerService : IBuyerService
             await _buyerRepository.CreateAsync(buyer);
 
                  string gender = null;
-               if(userr.Gender ==  "Male")
+               if(UserService.IsMale(userr.Gender))
                {
                  gender="Mr";
                }
-               else if(userr.Gender==  "Female")
+               else if(UserService.IsFeMale(userr.Gender))
                {
                  gender="Mrs";
                }
@@ -88,25 +87,10 @@ public class BuyerService : IBuyerService
                
              var mail =  await _emailSender.SendEmail(email);
 
-             var buyerDto = new BuyerDto{
-                  UserName = createBuyerModel.UserName,
-                  ProfilePicture = user.ProfilePicture,
-                  Name = $"{createBuyerModel.FirstName} {createBuyerModel.LastName}",
-                  PhoneNumber = createBuyerModel.PhoneNumber,
-                  FullAddress = createBuyerModel.FullAddress,
-                  LocalGovernment = createBuyerModel.LocalGovernment,
-                  State = createBuyerModel.State,
-                  Gender = createBuyerModel.Gender,
-                  Email = createBuyerModel.Email,
-                  Password = createBuyerModel.Password,
-                  Role = user.Role,
-                  IsActive = user.IsActive,
-                  DateCreated = user.DateCreated,
-            };
+           
             return new BaseResponse<BuyerDto>{
                 IsSuccess = true,
-                Message = "Buyer Created successfully 😎",
-                Data = buyerDto
+                Message = "Buyer Created successfully 😎"
             };
         }
 
@@ -137,25 +121,7 @@ public class BuyerService : IBuyerService
                     IsSuccess = false
                 };  
             }
-              var buyer = nonActiveBuyers.Select(a => new BuyerDto{
-                  UserName = a.User.UserName,
-                  ProfilePicture = a.User.ProfilePicture,
-                  Name = a.User.Name,
-                  PhoneNumber = a.User.PhoneNumber,
-                  FullAddress = a.User.Address.FullAddress ,
-                  LocalGovernment = a.User.Address.LocalGovernment,
-                  State = a.User.Address.State,
-                  Gender = a.User.Gender,
-                  Email = a.User.Email,
-                  Password = a.User.Password,
-                  Role = a.User.Role,
-                  IsActive = a.User.IsActive,
-                  DateCreated = a.User.DateCreated,
-                  DateModified = a.User.DateModified
-            }).ToList();
-
-
-
+              var buyer = nonActiveBuyers.Select(a => BuyerDto(a)).ToList();
               var ActiveBuyers = await _buyerRepository.GetAllAsync();
 
            if(ActiveBuyers == null)
@@ -166,22 +132,7 @@ public class BuyerService : IBuyerService
                     IsSuccess = false
                 };  
             }
-              var buyerr = ActiveBuyers.Select(a => new BuyerDto{
-                  UserName = a.User.UserName,
-                  ProfilePicture = a.User.ProfilePicture,
-                  Name = a.User.Name,
-                  PhoneNumber = a.User.PhoneNumber,
-                  FullAddress = a.User.Address.FullAddress ,
-                  LocalGovernment = a.User.Address.LocalGovernment,
-                  State = a.User.Address.State,
-                  Gender = a.User.Gender,
-                  Email = a.User.Email,
-                  Password = a.User.Password,
-                  Role = a.User.Role,
-                  IsActive = a.User.IsActive,
-                  DateCreated = a.User.DateCreated,
-                  DateModified = a.User.DateModified
-            }).ToList();
+              var buyerr = ActiveBuyers.Select(a => BuyerDto(a)).ToList();
 
             var buyers = new ActiveAndNonActiveBuyers{
                 ActiveBuyers = buyer,
@@ -208,22 +159,7 @@ public class BuyerService : IBuyerService
                     IsSuccess = false
                 };  
             }
-              var buyer = buyers.Select(a => new BuyerDto{
-                  UserName = a.User.UserName,
-                  ProfilePicture = a.User.ProfilePicture,
-                  Name = a.User.Name,
-                  PhoneNumber = a.User.PhoneNumber,
-                  FullAddress = a.User.Address.FullAddress ,
-                  LocalGovernment = a.User.Address.LocalGovernment,
-                  State = a.User.Address.State,
-                  Gender = a.User.Gender,
-                  Email = a.User.Email,
-                  Password = a.User.Password,
-                  Role = a.User.Role,
-                  IsActive = a.User.IsActive,
-                  DateCreated = a.User.DateCreated,
-                  DateModified = a.User.DateModified
-            }).ToList();
+              var buyer = buyers.Select(a => BuyerDto(a)).ToList();
             return new BaseResponse<IEnumerable<BuyerDto>>
             {
                 Message = "List of Buyers",
@@ -244,24 +180,10 @@ public class BuyerService : IBuyerService
                 };
 
              }
-             var buyerDto = new BuyerDto();
+             BuyerDto buyerDto = null;
             if(buyer is not null)
             {
-                  buyerDto.Id = buyer.User.Id;
-                  buyerDto.UserName = buyer.User.UserName;
-                  buyerDto. ProfilePicture =  buyer.User.ProfilePicture;
-                  buyerDto.Name =  buyer.User.Name;
-                  buyerDto.PhoneNumber =  buyer.User.PhoneNumber;
-                  buyerDto.FullAddress =  buyer.User.Address.FullAddress ;
-                  buyerDto.LocalGovernment =  buyer.User.Address.LocalGovernment;
-                  buyerDto.State =  buyer.User.Address.State;
-                  buyerDto.Gender = buyer.User.Gender;
-                  buyerDto.Email = buyer.User.Email;
-                //   buyerDto.Password = buyer.User.Password;
-                  buyerDto.Role = buyer.User.Role;
-                  buyerDto.IsActive = buyer.User.IsActive;
-                  buyerDto.DateCreated = buyer.User.DateCreated;
-                  buyerDto.DateModified = buyer.User.DateModified;
+               buyerDto = BuyerDto(buyer);
             }
             return new BaseResponse<BuyerDto>
             {
@@ -283,24 +205,7 @@ public class BuyerService : IBuyerService
                 };
 
              }
-            var buyerDto = new BuyerDto{
-                     Id = buyer.User.Id,
-                     UserName = buyer.User.UserName,
-                     ProfilePicture =  buyer.User.ProfilePicture,
-                     Name =  buyer.User.Name,
-                     PhoneNumber =  buyer.User.PhoneNumber,
-                     FullAddress =  buyer.User.Address.FullAddress ,
-                     LocalGovernment =  buyer.User.Address.LocalGovernment,
-                     State =  buyer.User.Address.State,
-                     Gender = buyer.User.Gender,
-                     Email = buyer.User.Email,
-                    //  Password = buyer.User.Password,
-                     Role = buyer.User.Role,
-                     IsActive = buyer.User.IsActive,
-                     DateCreated = buyer.User.DateCreated,
-                     DateModified = buyer.User.DateModified
-
-            };
+            var buyerDto = BuyerDto(buyer);
             return new BaseResponse<BuyerDto>
             {
                 Message = "Buyer Found successfully",
@@ -321,22 +226,7 @@ public class BuyerService : IBuyerService
                     IsSuccess = false
                 };  
             }
-              var buyer = buyers.Select(a => new BuyerDto{
-                  UserName = a.User.UserName,
-                  ProfilePicture = a.User.ProfilePicture,
-                  Name = a.User.Name,
-                  PhoneNumber = a.User.PhoneNumber,
-                  FullAddress = a.User.Address.FullAddress ,
-                  LocalGovernment = a.User.Address.LocalGovernment,
-                  State = a.User.Address.State,
-                  Gender = a.User.Gender,
-                  Email = a.User.Email,
-                  Password = a.User.Password,
-                  Role = a.User.Role,
-                  IsActive = a.User.IsActive,
-                  DateCreated = a.User.DateCreated,
-                  DateModified = a.User.DateModified
-            }).ToList();
+              var buyer = buyers.Select(a => BuyerDto(a)).ToList();
             return new BaseResponse<IEnumerable<BuyerDto>>
             {
                 Message = "List of Buyers",
@@ -394,4 +284,23 @@ public class BuyerService : IBuyerService
                 Data = buyerDto
             };
         }
+
+    private BuyerDto BuyerDto(Buyer buyer) =>
+        new BuyerDto()
+        {
+            UserName = buyer.User.UserName,
+            ProfilePicture = buyer.User.ProfilePicture,
+            Name = buyer.User.Name,
+            PhoneNumber = buyer.User.PhoneNumber,
+            FullAddress = buyer.User.Address.FullAddress,
+            LocalGovernment = buyer.User.Address.LocalGovernment,
+            State = buyer.User.Address.State,
+            Gender = buyer.User.Gender,
+            Email = buyer.User.Email,
+            Password = buyer.User.Password,
+            Role = buyer.User.Role,
+            IsActive = buyer.User.IsActive,
+            DateCreated = buyer.User.DateCreated,
+            DateModified = buyer.User.DateModified
+        };
 }

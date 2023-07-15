@@ -7,11 +7,8 @@ namespace AgroExpressAPI.Controllers;
     public class EmailController : ControllerBase
     {
         private readonly IEmailSender _emailSender;
-        public EmailController(IEmailSender emailSender)
-        {
+        public EmailController(IEmailSender emailSender) =>
             _emailSender = emailSender;
-            
-        }
     
         [HttpPost("CreateEmail")]
         [ValidateAntiForgeryToken]

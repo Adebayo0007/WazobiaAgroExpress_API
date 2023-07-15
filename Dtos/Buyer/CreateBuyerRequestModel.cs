@@ -16,10 +16,10 @@ namespace AgroExpressAPI.Dtos.Buyer;
         [Required]
         [DisplayName("Last Name")]
         public string LastName{get; set;}
-       [Required]
-       [MaxLength(14)]
-       [MinLength(10)]
-       [DisplayName("Phone Number")]
+        [Required]
+        [MaxLength(14)]
+        [MinLength(10)]
+        [DisplayName("Phone Number")]
         public string PhoneNumber{get; set;}
         [Required]
         [DisplayName("Full Address")]

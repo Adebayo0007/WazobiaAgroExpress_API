@@ -39,11 +39,6 @@ namespace AgroExpressAPI.Controllers;
                {
                    return BadRequest(user);
                }
-            //  if (user.IsSuccess == false && user.Message == "Due")
-            // {
-            //             TempData["error"] = "kindly pay up your due";
-            //             return BadRequest(user);
-            //  }
 
             var token = _authentication.GenerateToken(user);
                var response = new LogInResponseModel<UserDto>

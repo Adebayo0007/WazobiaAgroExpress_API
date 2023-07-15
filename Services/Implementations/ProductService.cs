@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using AgroExpressAPI.Conversion;
 using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Dtos.Product;
 using AgroExpressAPI.Email;
@@ -72,27 +71,7 @@ public class ProductService : IProductService
                  FarmerRank = farmer.Ranking
             };
               var productt = await _productRepository.CreateAsync(product);
-           var productDto = new ProductDto{
-                 Id = productt.Id,
-                 FarmerId = product.FarmerId,
-                 FirstDimentionPicture = product.FirstDimentionPicture,
-                 SecondDimentionPicture = product.SecondDimentionPicture,
-                 ThirdDimentionPicture = product.ThirdDimentionPicture,
-                 ForthDimentionPicture = product.ForthDimentionPicture,
-                 ProductName = product.ProductName,
-                 FarmerUserName = product.FarmerUserName,
-                 FarmerEmail = product.FarmerEmail,
-                 Quantity = product.Quantity,
-                 Price = product.Price,
-                 Measurement = product.Measurement,
-                 AvailabilityDateFrom = product.AvailabilityDateFrom,
-                 AvailabilityDateTo = product.AvailabilityDateTo,
-                 DateCreated = product.DateCreated,
-                 ProductLocalGovernment = product.ProductLocalGovernment,
-                 ProductState = product.ProductState,
-                 IsAvailable = product.IsAvailable
-
-           };
+             var productDto = ProductDto(product);
              return new BaseResponse<ProductDto>{
                 IsSuccess = true,
                 Message = "Farm Product Created successfully 😎",
@@ -100,11 +79,8 @@ public class ProductService : IProductService
             };
         }
 
-        public async Task DeleteExpiredProducts()
-        {
+        public async Task DeleteExpiredProducts() =>
            await _productRepository.DeleteExpiredProducts();
-        }
-
         public async Task DeleteProduct(string productId)
         {
             var product = _productRepository.GetProductById(productId);
@@ -122,27 +98,7 @@ public class ProductService : IProductService
             };
             
             }
-            var productDto = products.Select(product => new ProductDto{
-                 Id = product.Id,
-                 FarmerId = product.FarmerId,
-                 FirstDimentionPicture = product.FirstDimentionPicture,
-                 SecondDimentionPicture = product.SecondDimentionPicture,
-                 ThirdDimentionPicture = product.ThirdDimentionPicture,
-                 ForthDimentionPicture = product.ForthDimentionPicture,
-                 ProductName = product.ProductName,
-                 FarmerUserName = product.FarmerUserName,
-                 FarmerEmail = product.FarmerEmail,
-                 Quantity = product.Quantity,
-                 Price = product.Price,
-                 Measurement = product.Measurement,
-                 AvailabilityDateFrom = product.AvailabilityDateFrom,
-                 AvailabilityDateTo = product.AvailabilityDateTo,
-                 DateCreated = product.DateCreated,
-                 ProductLocalGovernment = product.ProductLocalGovernment,
-                 ProductState = product.ProductState,
-                 IsAvailable = product.IsAvailable
-
-            }).ToList();
+            var productDto = products.Select(product => ProductDto(product)).ToList();
 
             return new BaseResponse<IEnumerable<ProductDto>>{
                 Message = "Farm product retrived successfully 😎",
@@ -164,31 +120,7 @@ public class ProductService : IProductService
                     IsSuccess = false
                 };
             }
-            var productDto = products.Select(product => new ProductDto{
-                 Id = product.Id,
-                 FarmerId = product.FarmerId,
-                 FirstDimentionPicture = product.FirstDimentionPicture,
-                 SecondDimentionPicture = product.SecondDimentionPicture,
-                 ThirdDimentionPicture = product.ThirdDimentionPicture,
-                 ForthDimentionPicture = product.ForthDimentionPicture,
-                 ProductName = product.ProductName,
-                 FarmerUserName = product.FarmerUserName,
-                 FarmerEmail = product.FarmerEmail,
-                 Quantity = product.Quantity,
-                 Price = product.Price,
-                 Measurement = product.Measurement,
-                 AvailabilityDateFrom = product.AvailabilityDateFrom,
-                 AvailabilityDateTo = product.AvailabilityDateTo,
-                 DateCreated = product.DateCreated,
-                 ProductLocalGovernment = product.ProductLocalGovernment,
-                 ProductState = product.ProductState,
-                 IsAvailable = product.IsAvailable,
-                 FarmerRank = product.FarmerRank,
-                 ThumbUp = product.ThumbUp,
-                 ThumbDown = product.ThumbDown,
-                 
-
-            }).ToList();
+            var productDto = products.Select(product => ProductDto(product)).ToList();
 
             return new BaseResponse<IEnumerable<ProductDto>>{
                 Message = "Farm product retrived successfully 😎",
@@ -209,27 +141,7 @@ public class ProductService : IProductService
                     IsSuccess = false
                 };
             }
-            var productDto = products.Select(product => new ProductDto{
-                 Id = product.Id,
-                 FarmerId = product.FarmerId,
-                 FirstDimentionPicture = product.FirstDimentionPicture,
-                 SecondDimentionPicture = product.SecondDimentionPicture,
-                 ThirdDimentionPicture = product.ThirdDimentionPicture,
-                 ForthDimentionPicture = product.ForthDimentionPicture,
-                 ProductName = product.ProductName,
-                 FarmerUserName = product.FarmerUserName,
-                 FarmerEmail = product.FarmerEmail,
-                 Quantity = product.Quantity,
-                 Price = product.Price,
-                 Measurement = product.Measurement,
-                 AvailabilityDateFrom = product.AvailabilityDateFrom,
-                 AvailabilityDateTo = product.AvailabilityDateTo,
-                 DateCreated = product.DateCreated,
-                 ProductLocalGovernment = product.ProductLocalGovernment,
-                 ProductState = product.ProductState,
-                 IsAvailable = product.IsAvailable
-
-            }).ToList();
+            var productDto = products.Select(product => ProductDto(product)).ToList();
 
             return new BaseResponse<IEnumerable<ProductDto>>{
                 Message = "Farm product retrived successfully 😎",
@@ -248,27 +160,7 @@ public class ProductService : IProductService
                     IsSuccess = false
                 };
             }
-            var productDto = new ProductDto{
-                 Id = product.Id,
-                 FarmerId = product.FarmerId,
-                 FirstDimentionPicture = product.FirstDimentionPicture,
-                 SecondDimentionPicture = product.SecondDimentionPicture,
-                 ThirdDimentionPicture = product.ThirdDimentionPicture,
-                 ForthDimentionPicture = product.ForthDimentionPicture,
-                 ProductName = product.ProductName,
-                 FarmerUserName = product.FarmerUserName,
-                 FarmerEmail = product.FarmerEmail,
-                 Quantity = product.Quantity,
-                 Price = product.Price,
-                 Measurement = product.Measurement,
-                 AvailabilityDateFrom = product.AvailabilityDateFrom,
-                 AvailabilityDateTo = product.AvailabilityDateTo,
-                 DateCreated = product.DateCreated,
-                 ProductLocalGovernment = product.ProductLocalGovernment,
-                 ProductState = product.ProductState,
-                 IsAvailable = product.IsAvailable
-
-            };
+        var productDto = ProductDto(product);
             return new BaseResponse<ProductDto>{
                 Message = "Product retrieved successfully 😎",
                 IsSuccess = true,
@@ -288,27 +180,7 @@ public class ProductService : IProductService
                     IsSuccess = false
                 };
             }
-            var productDto = products.Select(product => new ProductDto{
-                 Id = product.Id,
-                 FarmerId = product.FarmerId,
-                 FirstDimentionPicture = product.FirstDimentionPicture,
-                 SecondDimentionPicture = product.SecondDimentionPicture,
-                 ThirdDimentionPicture = product.ThirdDimentionPicture,
-                 ForthDimentionPicture = product.ForthDimentionPicture,
-                 ProductName = product.ProductName,
-                 FarmerUserName = product.FarmerUserName,
-                 FarmerEmail = product.FarmerEmail,
-                 Quantity = product.Quantity,
-                 Price = product.Price,
-                 Measurement = product.Measurement,
-                 AvailabilityDateFrom = product.AvailabilityDateFrom,
-                 AvailabilityDateTo = product.AvailabilityDateTo,
-                 DateCreated = product.DateCreated,
-                 ProductLocalGovernment = product.ProductLocalGovernment,
-                 ProductState = product.ProductState,
-                 IsAvailable = product.IsAvailable
-
-            }).ToList();
+            var productDto = products.Select(product => ProductDto(product)).ToList();
 
             return new BaseResponse<IEnumerable<ProductDto>>{
                 Message = "Farm product retrived successfully 😎",
@@ -367,31 +239,37 @@ public class ProductService : IProductService
                await _emailSender.SendEmail(email);
 
 
-             var productDto = new ProductDto{
-                 Id = product.Id,
-                 FarmerId = product.FarmerId,
-                 FirstDimentionPicture = product.FirstDimentionPicture,
-                 SecondDimentionPicture =product.SecondDimentionPicture,
-                 ThirdDimentionPicture = product.ThirdDimentionPicture,
-                 ForthDimentionPicture = product.ForthDimentionPicture,
-                 ProductName = product.ProductName,
-                 FarmerUserName = product.FarmerUserName,
-                 FarmerEmail = product.FarmerEmail,
-                 Quantity = product.Quantity,
-                 Price = product.Price,
-                 Measurement = product.Measurement,
-                 AvailabilityDateFrom = product.AvailabilityDateFrom,
-                 AvailabilityDateTo = product.AvailabilityDateTo,
-                 DateCreated = product.DateCreated,
-                 ProductLocalGovernment = product.ProductLocalGovernment,
-                 ProductState = product.ProductState,
-                 IsAvailable = product.IsAvailable
-
-            };
+        var productDto = ProductDto(product);
             return new BaseResponse<ProductDto>{
                 Message = "Farm product updated successfully 😎",
                 IsSuccess = true,
                 Data = productDto
             };
         }
+    private ProductDto ProductDto(Product product) =>
+        new ProductDto()
+        {
+            Id = product.Id,
+            FarmerId = product.FarmerId,
+            FirstDimentionPicture = product.FirstDimentionPicture,
+            SecondDimentionPicture = product.SecondDimentionPicture,
+            ThirdDimentionPicture = product.ThirdDimentionPicture,
+            ForthDimentionPicture = product.ForthDimentionPicture,
+            ProductName = product.ProductName,
+            FarmerUserName = product.FarmerUserName,
+            FarmerEmail = product.FarmerEmail,
+            Quantity = product.Quantity,
+            Price = product.Price,
+            Measurement = product.Measurement,
+            AvailabilityDateFrom = product.AvailabilityDateFrom,
+            AvailabilityDateTo = product.AvailabilityDateTo,
+            DateCreated = product.DateCreated,
+            ProductLocalGovernment = product.ProductLocalGovernment,
+            ProductState = product.ProductState,
+            IsAvailable = product.IsAvailable,
+            FarmerRank = product.FarmerRank,
+            ThumbUp = product.ThumbUp,
+            ThumbDown = product.ThumbDown,
+
+        };
 }
