@@ -243,7 +243,7 @@ public class BuyerService : IBuyerService
                 PhoneNumber  = updateBuyerModel.PhoneNumber,
                 FullAddress = updateBuyerModel.FullAddress,
                 LocalGovernment = updateBuyerModel.LocalGovernment,
-                State  =updateBuyerModel.State,
+                State  = updateBuyerModel.State,
                 Gender = updateBuyerModel.Gender,
                Email = updateBuyerModel.Email,
                Password = (updateBuyerModel.Password) != null?BCrypt.Net.BCrypt.HashPassword(updateBuyerModel.Password): null,
@@ -266,22 +266,9 @@ public class BuyerService : IBuyerService
             }
               _buyerRepository.Update(buyer);
 
-              var buyerDto = new BuyerDto{
-                UserName = updateBuyerModel.UserName,
-                Name = updateBuyerModel.Name,
-                PhoneNumber  = updateBuyerModel.PhoneNumber,
-                FullAddress = updateBuyerModel.FullAddress,
-                LocalGovernment = updateBuyerModel.LocalGovernment,
-                State  =updateBuyerModel.State,
-                Gender = updateBuyerModel.Gender,
-               Email = updateBuyerModel.Email,
-               Password = updateBuyer.Password
-            };
-
             return new BaseResponse<BuyerDto>{
                 Message = "Buyer Updated successfully",
                 IsSuccess = true,
-                Data = buyerDto
             };
         }
 
@@ -297,7 +284,6 @@ public class BuyerService : IBuyerService
             State = buyer.User.Address.State,
             Gender = buyer.User.Gender,
             Email = buyer.User.Email,
-            Password = buyer.User.Password,
             Role = buyer.User.Role,
             IsActive = buyer.User.IsActive,
             DateCreated = buyer.User.DateCreated,
