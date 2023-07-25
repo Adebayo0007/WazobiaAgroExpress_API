@@ -6,6 +6,7 @@ namespace AgroExpressAPI.Services.Interfaces;
     {
          Task<BaseResponse<UserDto>> GetByIdAsync(string userId);
         Task<BaseResponse<UserDto>> GetByEmailAsync(string userEmail);
+         Task<LogInResponseModel<UserDto>> GetByName(string name);
         Task<BaseResponse<UserDto>> Login(LogInRequestModel logInRequestModel);
         Task<BaseResponse<IEnumerable<UserDto>>> GetAllAsync();
          Task<BaseResponse<IEnumerable<UserDto>>> SearchUserByEmailOrUserName(string searchInput);
@@ -16,4 +17,5 @@ namespace AgroExpressAPI.Services.Interfaces;
         Task<bool> ExistByEmailAsync(string userEmail);
         Task UpdatingToHasPaid(string email);
         Task<bool> ForgottenPassword(string email);
-    }
+        Task UpdateRefreshToken(string userEmail, string refreshToken);
+}

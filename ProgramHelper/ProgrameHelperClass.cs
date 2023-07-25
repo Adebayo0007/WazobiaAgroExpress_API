@@ -1,3 +1,5 @@
+
+using System.Configuration;
 using System.Security.Claims;
 using System.Text;
 using AgroExpressAPI.ApplicationAuthentication;
@@ -10,6 +12,7 @@ using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace AgroExpressAPI.ProgramHelper;
     public class ProgrameHelperClass
@@ -63,8 +66,10 @@ namespace AgroExpressAPI.ProgramHelper;
             builder.Services.AddScoped<ITransactionService , TransactionService>();
 
             builder.Services.AddScoped<IEmailSender , EmailSender>();
-
-        }
+            builder.Services.AddTransient<IJWTAuthentication, JWTAuthentication>();
+             //builder.Services.AddSingleton<Configuration>();
+            
+    }
 
         public static void AddingDbContextToContainer(WebApplicationBuilder builder)
         {
@@ -77,7 +82,7 @@ namespace AgroExpressAPI.ProgramHelper;
         {
 
             var key = builder.Configuration.GetValue<string>("JWTConnectionKey:JWTKey");
-            builder.Services.AddSingleton<IJWTAuthentication>(new JWTAuthentication(key));
+            builder.Services.AddSingleton<IJWTAuthentication>(new JWTAuthentication());
 
             builder.Services.AddAuthentication(x =>
             {
@@ -91,7 +96,7 @@ namespace AgroExpressAPI.ProgramHelper;
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };

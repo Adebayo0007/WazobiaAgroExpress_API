@@ -74,4 +74,8 @@ public class UserRepository : IUserRepository
 
         public async Task SaveChangesAsync() =>
             await _applicationDbContext.SaveChangesAsync();
+
+    public Task<User> GetByName(string name) =>
+    _applicationDbContext.Users.SingleOrDefaultAsync(u => u.Name == name);
+    
 }

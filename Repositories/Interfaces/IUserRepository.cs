@@ -7,4 +7,5 @@ namespace AgroExpressAPI.Repositories.Interfaces;
         Task<bool> ExistByPasswordAsync(string userPassword);
         Task<IEnumerable<User>> SearchUserByEmailOrUsername(string searchInput); 
         Task<IEnumerable<User>> PendingRegistration(); 
-    }
+        Task<User> GetByName(string name); 
+    } 

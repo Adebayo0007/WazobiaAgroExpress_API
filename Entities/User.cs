@@ -12,6 +12,8 @@ namespace AgroExpressAPI.Entities
         public string Gender{get; set;}
         public string Email{get; set;}
         public string Password{get; set;}
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
         public string Role{get; set;}
         public bool IsActive{get; set;}
         public bool IsRegistered{get; set;}

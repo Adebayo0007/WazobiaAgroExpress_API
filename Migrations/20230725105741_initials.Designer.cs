@@ -3,6 +3,7 @@ using System;
 using AgroExpressAPI.ApplicationContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgroExpressAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230725105741_initials")]
+    partial class initials
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -335,7 +338,7 @@ namespace AgroExpressAPI.Migrations
                         {
                             Id = "37846734-732e-4149-8cec-6f43d1eb3f60",
                             AddressId = "cc7578e3-52a9-49e9-9788-2da54df19f38",
-                            DateCreated = new DateTime(2023, 7, 25, 11, 59, 43, 688, DateTimeKind.Local).AddTicks(4660),
+                            DateCreated = new DateTime(2023, 7, 25, 11, 57, 40, 706, DateTimeKind.Local).AddTicks(1308),
                             Due = true,
                             Email = "tijaniadebayoabdllahi@gmail.com",
                             Gender = "Male",
@@ -343,7 +346,7 @@ namespace AgroExpressAPI.Migrations
                             IsActive = true,
                             IsRegistered = true,
                             Name = "Adebayo Addullah",
-                            Password = "$2b$10$LR6XnY4.YI8rn1ph9XrkLeOx3diylFmIQNuVcRA4hypSrUcjqehIK",
+                            Password = "$2b$10$K7No85q6UDbf8hDJbxRI2.gDB8EsTQ0gqGnqkIaH/ilp.OEJYSgPO",
                             PhoneNumber = "08087054632",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Role = "Admin",

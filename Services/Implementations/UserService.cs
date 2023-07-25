@@ -9,8 +9,8 @@ using AgroExpressAPI.Repositories.Interfaces;
 using AgroExpressAPI.Services.Interfaces;
 
 namespace AgroExpressAPI.Services.Implementations;
-    public class UserService : IUserService
-    {
+public class UserService : IUserService
+{
         private readonly IUserRepository _userRepository;
           private readonly IHttpContextAccessor _httpContextAccessor;
           private readonly IEmailSender _emailSender;
@@ -334,6 +334,33 @@ namespace AgroExpressAPI.Services.Implementations;
                  }
                  return false;
         }
+
+    public async Task UpdateRefreshToken(string userEmail, string refreshToken)
+    {
+        var user = _userRepository.GetByEmailAsync(userEmail);
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);  
+         _userRepository.Update(user);
+    }
+     public async Task<LogInResponseModel<UserDto>> GetByName(string name)
+    {
+       var user = await _userRepository.GetByName(name);
+       if(user is null)
+       {
+            return new LogInResponseModel<UserDto>()
+        {
+                IsSuccess = false    
+        };
+
+       }
+       var userDto = UserDto(user);
+       return new LogInResponseModel<UserDto>()
+       {
+            IsSuccess = true,
+            RefreshToken = userDto.RefreshToken,
+            Data = userDto
+       };
+    }
     private UserDto UserDto(User user) =>
         new UserDto()
         {
@@ -350,8 +377,9 @@ namespace AgroExpressAPI.Services.Implementations;
             Role = user.Role,
             IsActive = user.IsActive,
             DateCreated = user.DateCreated,
-            DateModified = user.DateModified
-
+            DateModified = user.DateModified,
+            RefreshToken = user.RefreshToken,
+            RefreshTokenExpiryTime = user.RefreshTokenExpiryTime
         };
       public static bool IsMale(string str)
         {
@@ -371,4 +399,6 @@ namespace AgroExpressAPI.Services.Implementations;
         }
         return false;
     }
+
+   
 }

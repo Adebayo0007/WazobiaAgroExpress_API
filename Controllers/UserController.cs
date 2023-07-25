@@ -35,16 +35,23 @@ namespace AgroExpressAPI.Controllers;
                 return NotFound();
             }
             var user = await _userService.Login(loginModel);
-            if (!user.IsSuccess)
+            if (user.Data is null)
+            {
+                return Unauthorized();
+            }
+        if (!user.IsSuccess)
                {
                    return BadRequest(user);
                }
 
-            var token = _authentication.GenerateToken(user);
+            var token = _authentication.GenerateToken(user.Data);
+             var refreshToken = _authentication.GenerateRefreshToken();
+             await _userService.UpdateRefreshToken(user.Data.Email, refreshToken);
                var response = new LogInResponseModel<UserDto>
                {
                    Data = user.Data,
                    Token = token,
+                   RefreshToken = refreshToken,
                    IsSuccess = true
                };
                return Ok(response);
