@@ -379,7 +379,8 @@ public class UserService : IUserService
             DateCreated = user.DateCreated,
             DateModified = user.DateModified,
             RefreshToken = user.RefreshToken,
-            RefreshTokenExpiryTime = user.RefreshTokenExpiryTime
+            RefreshTokenExpiryTime = user.RefreshTokenExpiryTime,
+            Haspaid = user.Haspaid
         };
       public static bool IsMale(string str)
         {

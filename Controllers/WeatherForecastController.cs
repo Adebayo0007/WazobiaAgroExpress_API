@@ -2,9 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
 
- [Route("api/[controller]")]
-[ApiController]
-public class WeatherForecastController : ControllerBase
+
+public class WeatherForecastController : VersionedApiController
 {
     private static readonly string[] Summaries = new[]
     {
@@ -33,6 +32,6 @@ public class WeatherForecastController : ControllerBase
             return Ok(weather);
         }
         string response = "not found";
-        return BadRequest(response);
+        return BadRequest(new { message = response });
     }
 }

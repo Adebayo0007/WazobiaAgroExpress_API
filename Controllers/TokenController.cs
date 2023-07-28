@@ -6,10 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TokenController : ControllerBase
-    {
+   
+    public class TokenController : VersionedApiController
+{
         
          private readonly IUserService _userService;
           private readonly IJWTAuthentication _authentication;

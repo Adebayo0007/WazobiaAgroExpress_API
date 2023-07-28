@@ -4,12 +4,16 @@ using System.Security.Claims;
 using System.Text;
 using AgroExpressAPI.ApplicationAuthentication;
 using AgroExpressAPI.ApplicationContext;
+using AgroExpressAPI.Controllers;
 using AgroExpressAPI.Email;
 using AgroExpressAPI.Repositories.Implementations;
 using AgroExpressAPI.Repositories.Interfaces;
 using AgroExpressAPI.Services.Implementations;
 using AgroExpressAPI.Services.Interfaces;
+using AgroExpressAPI.VersionConstrain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -67,11 +71,19 @@ namespace AgroExpressAPI.ProgramHelper;
 
             builder.Services.AddScoped<IEmailSender , EmailSender>();
             builder.Services.AddTransient<IJWTAuthentication, JWTAuthentication>();
-             //builder.Services.AddSingleton<Configuration>();
-            
+            builder.Services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ApiVersionReader = new HeaderApiVersionReader("api-version"); // Specifying the header name that holds the version information
+            });
+
+        //builder.Services.AddSingleton<Configuration>();
+
     }
 
-        public static void AddingDbContextToContainer(WebApplicationBuilder builder)
+    public static void AddingDbContextToContainer(WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseMySQL(
             builder.Configuration.GetConnectionString("AgroExpressConnectionString")

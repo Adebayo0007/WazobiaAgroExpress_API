@@ -3,10 +3,8 @@ using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-   [Route("api/[controller]")]
-   [ApiController]
-    public class ProductController : ControllerBase
-    {
+    public class ProductController : VersionedApiController
+{
          private readonly IProductService _productService;
          private readonly IWebHostEnvironment _webHostEnvironment;
         public ProductController(IProductService productSercice, IWebHostEnvironment webHostEnvironment)
@@ -22,7 +20,7 @@ namespace AgroExpressAPI.Controllers;
              if(!ModelState.IsValid)
             {
                 string response = "Invalid input,check your input very well";
-                return BadRequest(response);
+                return BadRequest(new { message = response });
             }   
                   //handling the files in coming from the request
                    IList<string> dimentions =  new List<string>();
@@ -41,8 +39,8 @@ namespace AgroExpressAPI.Controllers;
                         {
                             if(extension == ext) check = true;
                         }
-                        if(check == false) return BadRequest("The type of your picture is not accepted");
-                        if(file.Length > 20480) return BadRequest("accepted picture must not be more than 20KB");
+                        if(check == false) return BadRequest(new { message = "The type of your picture is not accepted" });
+                        if(file.Length > 20480) return BadRequest(new { message = "accepted picture must not be more than 20KB" });
                         string image = Guid.NewGuid().ToString() + info.Extension;
                         string path = Path.Combine(imageDirectory, image);
                         using(var filestream = new FileStream(path, FileMode.Create))
@@ -109,7 +107,7 @@ namespace AgroExpressAPI.Controllers;
         {       
            await _productService.DeleteProduct(productId);
              string response = "product deleted successfully";
-            return Ok(response);
+            return Ok(new { message = response });
         }
 
 
@@ -130,7 +128,7 @@ namespace AgroExpressAPI.Controllers;
             {
               _productService.ThumbUp(productId);
              var response = "Liked 👍";
-             return Ok(response);
+             return Ok(new { message = response });
             }
               return BadRequest();
         }
@@ -142,7 +140,7 @@ namespace AgroExpressAPI.Controllers;
             {
               _productService.ThumbDown(productId);
              var response = "Unlike 👎";
-             return Ok(response);
+             return Ok(new { message = response });
             }
               return BadRequest();
         }  

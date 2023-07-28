@@ -6,14 +6,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
-    {
+
+    // [Route("api/v{version:apiVersion}/[controller]")]
+    // [ApiController]
+    //[ApiVersion("1.0")]
+    //[ApiVersion("2.0")]
+public class UserController : VersionedApiController
+{
 
          private readonly IUserService _userService;
-          private readonly IJWTAuthentication _authentication;
-           private readonly IWebHostEnvironment _webHostEnvironment;
+         private readonly IJWTAuthentication _authentication;
+          private readonly IWebHostEnvironment _webHostEnvironment;
         public UserController(IUserService userService, IJWTAuthentication authentication,IWebHostEnvironment webHostEnvironment)
         {
             _userService = userService;
@@ -21,7 +24,8 @@ namespace AgroExpressAPI.Controllers;
             _webHostEnvironment = webHostEnvironment;
             
         }
-
+       /* [MapToApiVersion("1.0")]
+        [MapToApiVersion("2.0")]*/
         [HttpPost("LogIn")]
         public async Task<IActionResult> LogIn(LogInRequestModel loginModel)
         {

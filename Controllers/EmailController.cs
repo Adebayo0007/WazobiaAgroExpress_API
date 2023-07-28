@@ -2,10 +2,9 @@ using AgroExpressAPI.Email;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EmailController : ControllerBase
-    {
+  
+    public class EmailController : VersionedApiController
+{
         private readonly IEmailSender _emailSender;
         public EmailController(IEmailSender emailSender) =>
             _emailSender = emailSender;

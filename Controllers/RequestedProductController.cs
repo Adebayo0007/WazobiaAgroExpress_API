@@ -5,10 +5,9 @@ using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-   [Route("api/[controller]")]
-   [ApiController]
-    public class RequestedProductController : ControllerBase
-    {
+   
+    public class RequestedProductController : VersionedApiController
+{
              private readonly IRequestedProductService _requstedProductService;
              private readonly IProductService _productService;
              private readonly IUserService _userService;
@@ -32,18 +31,18 @@ namespace AgroExpressAPI.Controllers;
              if(!ModelState.IsValid)
             {
                 string response1 = "Invalid input,check your input very well";
-                return BadRequest(response1);
+                return BadRequest(new { message = response1 });
             }
             var mail = User.FindFirst(ClaimTypes.Email).Value;
-            requestedModel.BuyerEmail = mail;
+            requestedModel.BuyerEmail = mail;   
             requestedModel.ProductId = requestId;
            var user = await _userService.GetByEmailAsync(requestedModel.BuyerEmail);
            if(user.Data.Haspaid == false)
            { 
               return BadRequest();
            }
-                   var product =  await  _requstedProductService.CreateRequstedProductAsync(requestId,requestedModel);
-                    //  var product =  await  _transactionService.MakePayment(requestedModel);
+                   //var product =  await  _requstedProductService.CreateRequstedProductAsync(requestId,requestedModel);
+                     var product =  await  _transactionService.MakePayment(requestedModel);
                     if(product.IsSuccess != true) return BadRequest(product);
                     return Ok(product);     
          }
@@ -73,9 +72,8 @@ namespace AgroExpressAPI.Controllers;
             if(string.IsNullOrWhiteSpace(requestId)) return BadRequest();
            await _requstedProductService.DeleteRequestedProduct(requestId);
            string response = "Requested Product Deleted successfully";
-           return Ok(response);
+           return Ok(new { message = response });
             
-
          }
 
 
@@ -86,7 +84,7 @@ namespace AgroExpressAPI.Controllers;
             {
                 await _requstedProductService.ProductDelivered(requestId);
                 string response = "Thank You !";
-                return Ok(response);
+                return Ok(new { message = response });
             }
             return BadRequest();
             
@@ -96,7 +94,7 @@ namespace AgroExpressAPI.Controllers;
         {
             await _requstedProductService.NotDelivered(requestId);
            string response = "We will get back to you soon!";
-           return Ok(response);
+           return Ok(new { message = response });
 
         }
 
@@ -127,6 +125,6 @@ namespace AgroExpressAPI.Controllers;
         {
               _userService.UpdatingToHasPaid(userEmail);
               string response = "Payment successful";
-                return Ok(response);
+                return Ok(new { message = response });
         }
     }

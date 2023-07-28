@@ -2,10 +2,9 @@ using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-    [Route("api/[controller]")]
-    [ApiController]
-    public class HomeController : ControllerBase
-    {
+   
+    public class HomeController : VersionedApiController
+{
         private readonly IProductService _productSercice;
         private readonly IFarmerService _farmerSercice;
 

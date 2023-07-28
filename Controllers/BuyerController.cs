@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-   [Route("api/[controller]")]
-    [ApiController]
-    public class BuyerController : ControllerBase
-    {
+    public class BuyerController : VersionedApiController
+{
          private readonly IBuyerService _buyerService;
            private readonly IUserService _userService;
             private readonly IWebHostEnvironment _webHostEnvironment;

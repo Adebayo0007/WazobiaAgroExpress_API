@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Dtos.User;
 using Microsoft.IdentityModel.Tokens;
 
@@ -49,7 +48,8 @@ public class JWTAuthentication : IJWTAuthentication
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),
                     SecurityAlgorithms.HmacSha256Signature),
-               
+                // Issuer = "https://localhost:50001",
+                // Audience = "https://localhost:50001"
             };
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 return tokenHandler.WriteToken(token);

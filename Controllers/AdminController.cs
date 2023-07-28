@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AdminController : ControllerBase
-    {
+    public class AdminController : VersionedApiController
+{
          private readonly IAdminService _adminService;
           private readonly IWebHostEnvironment _webHostEnvironment;
         public AdminController(IAdminService adminService,IWebHostEnvironment webHostEnvironment)
