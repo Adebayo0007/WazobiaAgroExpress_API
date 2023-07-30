@@ -11,6 +11,7 @@ using AgroExpressAPI.Repositories.Interfaces;
 using AgroExpressAPI.Services.Implementations;
 using AgroExpressAPI.Services.Interfaces;
 using AgroExpressAPI.VersionConstrain;
+using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -23,6 +24,9 @@ namespace AgroExpressAPI.ProgramHelper;
     {
         public static void CrossOriginPolicy(WebApplicationBuilder builder)
         {
+        builder.Logging.ClearProviders();
+        builder.Logging.AddConsole();
+
             builder.Services.AddCors(a => a.AddPolicy("CorsPolicy", b => 
                 {
                     //b.WithOrigins("http://localhost:5000/")
@@ -48,13 +52,13 @@ namespace AgroExpressAPI.ProgramHelper;
         }
         public static void RegisteringAndSortingDependencies(WebApplicationBuilder builder)
         {
-             builder.Services.AddScoped<IUserRepository , UserRepository>();
+            builder.Services.AddScoped<IUserRepository , UserRepository>();
             builder.Services.AddScoped<IUserService , UserService>();
 
             builder.Services.AddScoped<IAdminRepository , AdminRepository>();
             builder.Services.AddScoped<IAdminService , AdminService>();
 
-           builder.Services.AddScoped<IFarmerRepository , FarmerRepository>();
+            builder.Services.AddScoped<IFarmerRepository , FarmerRepository>();
             builder.Services.AddScoped<IFarmerService , FarmerService>();
 
             builder.Services.AddScoped<IBuyerRepository , BuyerRepository>();
@@ -78,6 +82,7 @@ namespace AgroExpressAPI.ProgramHelper;
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ApiVersionReader = new HeaderApiVersionReader("api-version"); // Specifying the header name that holds the version information
             });
+          //builder.Services.AddFastEndpoints();
 
         //builder.Services.AddSingleton<Configuration>();
 
@@ -119,17 +124,21 @@ namespace AgroExpressAPI.ProgramHelper;
 
         public static void HttpPipelineConfiguration(WebApplication app)
         {
-             if (app.Environment.IsDevelopment())
+            app.Logger.LogInformation("Starting Application...");
+            if (app.Environment.IsDevelopment())
                 {
                     app.UseSwagger();
                     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wazobia Agro Express v1"));
                 }
+               
+                app.Logger.LogInformation("Adding Route...");
                 app.UseRouting();
                 app.UseHttpsRedirection();
                 app.UseCors("CorsPolicy");
                 app.UseStaticFiles();
                 app.UseAuthentication();
                 app.UseAuthorization();
+               // app.UseFastEndpoints();
                 app.MapControllers();
                 //cancellation token for long proccesses
                 app.MapGet("/hello", async (CancellationToken token) =>{

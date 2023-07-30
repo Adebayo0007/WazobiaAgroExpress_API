@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-   
-    public class TokenController : VersionedApiController
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
+public class TokenController : VersionedApiController
 {
         
          private readonly IUserService _userService;

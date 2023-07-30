@@ -9,7 +9,7 @@ namespace AgroExpressAPI.ApplicationContext;
             
         }
 
-         public DbSet<Admin> Admins { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Buyer> Buyers { get; set; }
         public DbSet<Farmer> Farmers { get; set; }
@@ -59,6 +59,8 @@ namespace AgroExpressAPI.ApplicationContext;
                 }
             );
         }
+
+    
 
         
     }

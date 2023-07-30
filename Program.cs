@@ -26,6 +26,7 @@ ProgrameHelperClass.AddingJWTConfigurationToContainer(builder);//Adding JWT Conf
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 ProgrameHelperClass.HttpPipelineConfiguration(app);
 

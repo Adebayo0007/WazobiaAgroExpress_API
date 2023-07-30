@@ -10,6 +10,12 @@ C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Agro
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\AgroExpressAPI.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\AgroExpressAPI.pdb
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\BCrypt.Net-Core.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\CacheManager.Core.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\CacheManager.Microsoft.Extensions.Logging.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\FastEndpoints.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\FastEndpoints.Attributes.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\FastEndpoints.Messaging.Core.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\FluentValidation.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\FubarCoder.RestSharp.Portable.Core.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\FubarCoder.RestSharp.Portable.HttpClient.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Google.Protobuf.dll
@@ -18,7 +24,11 @@ C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Json
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\K4os.Compression.LZ4.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\K4os.Compression.LZ4.Streams.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\K4os.Hash.xxHash.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\MediatR.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\MediatR.Contracts.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Versioning.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -81,7 +91,3 @@ C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\obj\Debug\net7.0\refi
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\obj\Debug\net7.0\AgroExpressAPI.pdb
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\obj\Debug\net7.0\AgroExpressAPI.genruntimeconfig.cache
 C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\obj\Debug\net7.0\ref\AgroExpressAPI.dll
-C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\MediatR.dll
-C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\MediatR.Contracts.dll
-C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
-C:\Users\user\Desktop\Projects\FinalProject\AgroExpressAPI\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Versioning.dll

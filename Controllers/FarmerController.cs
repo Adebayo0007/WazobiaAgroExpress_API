@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-    public class FarmerController : VersionedApiController
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
+public class FarmerController : VersionedApiController
 {
          private readonly IFarmerService _farmerService;
         private readonly IUserService _userService;

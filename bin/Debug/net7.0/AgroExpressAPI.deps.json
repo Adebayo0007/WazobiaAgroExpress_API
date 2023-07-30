@@ -9,6 +9,8 @@
       "AgroExpressAPI/1.0.0": {
         "dependencies": {
           "BCrypt.Net-Core": "1.6.0",
+          "CacheManager.Microsoft.Extensions.Logging": "1.2.0",
+          "FastEndpoints": "5.14.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.5",
           "Microsoft.AspNetCore.Mvc.Versioning": "5.1.0",
@@ -34,6 +36,63 @@
           "lib/netstandard2.0/BCrypt.Net-Core.dll": {
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.6.0.0"
+          }
+        }
+      },
+      "CacheManager.Core/1.2.0": {
+        "runtime": {
+          "lib/netstandard2.0/CacheManager.Core.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        }
+      },
+      "CacheManager.Microsoft.Extensions.Logging/1.2.0": {
+        "dependencies": {
+          "CacheManager.Core": "1.2.0",
+          "Microsoft.Extensions.Logging": "7.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/CacheManager.Microsoft.Extensions.Logging.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        }
+      },
+      "FastEndpoints/5.14.0": {
+        "dependencies": {
+          "FastEndpoints.Attributes": "5.14.0",
+          "FastEndpoints.Messaging.Core": "5.14.0",
+          "FluentValidation": "11.6.0"
+        },
+        "runtime": {
+          "lib/net7.0/FastEndpoints.dll": {
+            "assemblyVersion": "5.14.0.0",
+            "fileVersion": "5.14.0.0"
+          }
+        }
+      },
+      "FastEndpoints.Attributes/5.14.0": {
+        "runtime": {
+          "lib/netstandard2.0/FastEndpoints.Attributes.dll": {
+            "assemblyVersion": "5.14.0.0",
+            "fileVersion": "5.14.0.0"
+          }
+        }
+      },
+      "FastEndpoints.Messaging.Core/5.14.0": {
+        "runtime": {
+          "lib/netstandard2.1/FastEndpoints.Messaging.Core.dll": {
+            "assemblyVersion": "5.14.0.0",
+            "fileVersion": "5.14.0.0"
+          }
+        }
+      },
+      "FluentValidation/11.6.0": {
+        "runtime": {
+          "lib/net7.0/FluentValidation.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.6.0.0"
           }
         }
       },
@@ -1432,6 +1491,48 @@
       "sha512": "sha512-hsKiHGjrnlDW05MzuzzlD9gNP8YOW2KbZ+FbvISrilsKJJ76tXKhWey6psZX5sd7DczNpSU2U6ldjPoblk8BLw==",
       "path": "bcrypt.net-core/1.6.0",
       "hashPath": "bcrypt.net-core.1.6.0.nupkg.sha512"
+    },
+    "CacheManager.Core/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tmgwGDJlPNdSTb94Bx/0D3fDlkP+HIa80d1nCrXs+NjTgZR8JaQcslH+PHP2ebxPkM4CnijQVEMD+Dk8CvR41w==",
+      "path": "cachemanager.core/1.2.0",
+      "hashPath": "cachemanager.core.1.2.0.nupkg.sha512"
+    },
+    "CacheManager.Microsoft.Extensions.Logging/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JMB0NdhiBlAHKVlRqWbOa1vIQ8jprc3EFZarUYDDo9gdvDvmbsOb1BL+rVApTVjRGlYP60/kr4UkEh4DSD1ctQ==",
+      "path": "cachemanager.microsoft.extensions.logging/1.2.0",
+      "hashPath": "cachemanager.microsoft.extensions.logging.1.2.0.nupkg.sha512"
+    },
+    "FastEndpoints/5.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VDa3Yu2D2wvHtl1Y0sdLi6F8p7ZG+EFpcqY1PcMQB0XvGSKxqGEBQeMfnIjUAOjcprELp2fPahvIM2EkNlWSYw==",
+      "path": "fastendpoints/5.14.0",
+      "hashPath": "fastendpoints.5.14.0.nupkg.sha512"
+    },
+    "FastEndpoints.Attributes/5.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V2FTCDqmQehWPHGFlGwLb/U97G68F2T4MLhEgrgN7RGO3r4uy72cxrBO6N/6TwZF07hJ27Cd2c96ZMlBcHUKRA==",
+      "path": "fastendpoints.attributes/5.14.0",
+      "hashPath": "fastendpoints.attributes.5.14.0.nupkg.sha512"
+    },
+    "FastEndpoints.Messaging.Core/5.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3hTHJLMmg4TJ4EZZGDfjSHjlSK6TC5AMwKL6tQPqKXnLLNOLFfTSk+eHPrAPJexeOCvHgjAnNdHwBjqmp0WTMw==",
+      "path": "fastendpoints.messaging.core/5.14.0",
+      "hashPath": "fastendpoints.messaging.core.5.14.0.nupkg.sha512"
+    },
+    "FluentValidation/11.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DWKd0jHA33d7BXVWytSoN5Oafj9nYuiLUyyFoaUboOZZiaN5tlXdcJpkRbmrrWBUTWdSxjTwIoyUs38KSU/7OQ==",
+      "path": "fluentvalidation/11.6.0",
+      "hashPath": "fluentvalidation.11.6.0.nupkg.sha512"
     },
     "FubarCoder.RestSharp.Portable.Core/4.0.8": {
       "type": "package",

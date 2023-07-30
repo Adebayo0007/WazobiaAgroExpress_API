@@ -1,10 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "/N3j3LlVWqj6Aq1qIXcHrxmDiQZ6ZTJrqRN2vE9D4vwBkODtGvbqMrG3bSOeEnXCV+ZWISrOjnT8T56CMOTHsw==",
+  "dgSpecHash": "FA1jTThcZDAJHNOUUob/ezg4o3fVtHdCeuO+/9R59xIIc61aIlREGKqmEgqch15ZXKIedFEOzhNdUfW9vbmU+w==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Desktop\\Projects\\FinalProject\\AgroExpressAPI\\AgroExpressAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\cachemanager.core\\1.2.0\\cachemanager.core.1.2.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\cachemanager.microsoft.extensions.logging\\1.2.0\\cachemanager.microsoft.extensions.logging.1.2.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\fastendpoints\\5.14.0\\fastendpoints.5.14.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\fastendpoints.attributes\\5.14.0\\fastendpoints.attributes.5.14.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\fastendpoints.messaging.core\\5.14.0\\fastendpoints.messaging.core.5.14.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\fubarcoder.restsharp.portable.core\\4.0.8\\fubarcoder.restsharp.portable.core.4.0.8.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\fubarcoder.restsharp.portable.httpclient\\4.0.8\\fubarcoder.restsharp.portable.httpclient.4.0.8.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",

@@ -5,8 +5,9 @@ using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-   
-    public class RequestedProductController : VersionedApiController
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
+public class RequestedProductController : VersionedApiController
 {
              private readonly IRequestedProductService _requstedProductService;
              private readonly IProductService _productService;

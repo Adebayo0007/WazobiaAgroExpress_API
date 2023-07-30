@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-    public class AdminController : VersionedApiController
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
+public class AdminController : VersionedApiController
 {
          private readonly IAdminService _adminService;
           private readonly IWebHostEnvironment _webHostEnvironment;

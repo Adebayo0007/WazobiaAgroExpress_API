@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgroExpressAPI.Controllers;
-    public class BuyerController : VersionedApiController
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
+public class BuyerController : VersionedApiController
 {
          private readonly IBuyerService _buyerService;
            private readonly IUserService _userService;
