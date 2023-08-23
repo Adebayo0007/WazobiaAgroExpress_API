@@ -1,6 +1,8 @@
 using AgroExpressAPI.Dtos.Product;
 using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using AgroExpressAPI.Dtos;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AgroExpressAPI.Controllers;
 [ApiVersion("1.0")]
@@ -9,10 +11,12 @@ public class ProductController : VersionedApiController
 {
          private readonly IProductService _productService;
          private readonly IWebHostEnvironment _webHostEnvironment;
-        public ProductController(IProductService productSercice, IWebHostEnvironment webHostEnvironment)
+          private readonly IMemoryCache _memoryCache;
+        public ProductController(IProductService productSercice, IWebHostEnvironment webHostEnvironment, IMemoryCache memoryCache)
         {
             _productService = productSercice;  
             _webHostEnvironment = webHostEnvironment; 
+             _memoryCache = memoryCache;
         }
        
          [HttpPost("CreateProduct")]
@@ -78,11 +82,23 @@ public class ProductController : VersionedApiController
 
 
         [HttpGet("AvailableProducts")]
+        [ResponseCache(Duration = 3600,Location = ResponseCacheLocation.Any)]  //using cache as an attribute for fast 
            public async Task<IActionResult> AvailableProducts()
         {
-           var products =  await _productService.GetAllFarmProductByLocationAsync();
-            if(products.IsSuccess == false) return BadRequest(products);
-            return Ok(products);
+               if (!_memoryCache.TryGetValue($"CacheKey", out BaseResponse<IEnumerable<ProductDto>> cachedValue))
+            {
+                 cachedValue =  await _productService.GetAllFarmProductByLocationAsync();
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"CacheKey", cachedValue, cacheEntryOptions);
+
+            }
+              
+                    if(cachedValue.IsSuccess == false) return BadRequest(cachedValue);
+           
+                 return Ok(cachedValue);
         }
 
          [HttpGet("GetProductById/{productId}")]

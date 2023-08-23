@@ -8440,6 +8440,7 @@
       "Microsoft.AspNetCore.OpenApi >= 7.0.0",
       "Microsoft.EntityFrameworkCore >= 7.0.1",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.1",
+      "Microsoft.Extensions.Caching.Memory >= 7.0.0",
       "Microsoft.Extensions.Configuration >= 7.0.0",
       "Microsoft.Extensions.Configuration.Json >= 7.0.0",
       "MySql.EntityFrameworkCore >= 7.0.0",
@@ -8528,6 +8529,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[7.0.1, )"
+          },
+          "Microsoft.Extensions.Caching.Memory": {
+            "target": "Package",
+            "version": "[7.0.0, )"
           },
           "Microsoft.Extensions.Configuration": {
             "target": "Package",

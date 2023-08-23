@@ -82,6 +82,19 @@ namespace AgroExpressAPI.ProgramHelper;
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ApiVersionReader = new HeaderApiVersionReader("api-version"); // Specifying the header name that holds the version information
             });
+
+             builder.Services.AddMvc(options =>
+            {
+                options.CacheProfiles.Add("Default",
+                new CacheProfile{
+                    Duration = 3600
+                });
+            });//using cache for fast performace that will be implemented globally
+
+          builder.Services.AddMemoryCache();  //using memory cache for storing data to avoiding hitting the db always
+            
+
+           
           //builder.Services.AddFastEndpoints();
 
         //builder.Services.AddSingleton<Configuration>();

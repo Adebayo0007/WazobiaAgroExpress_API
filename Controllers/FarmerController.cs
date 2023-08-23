@@ -101,6 +101,7 @@ public class FarmerController : VersionedApiController
         }
         
          [HttpPut("UpdateFarmer/{id}")]
+         [Authorize]
          [ValidateAntiForgeryToken]
          public async Task<IActionResult> UpdateFarmer(UpdateFarmerRequestModel requestModel, string id)
         {
