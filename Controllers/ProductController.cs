@@ -3,6 +3,7 @@ using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using AgroExpressAPI.Dtos;
 using Microsoft.Extensions.Caching.Memory;
+using System.Security.Claims;
 
 namespace AgroExpressAPI.Controllers;
 [ApiVersion("1.0")]
@@ -73,26 +74,38 @@ public class ProductController : VersionedApiController
 
 
          [HttpGet("MyProducts")]
+         [ResponseCache(Duration = 3600,Location = ResponseCacheLocation.Any)]  //using cache as an attribute for fast 
         public async Task<IActionResult> MyProducts()
         {
-           var products =  await _productService.GetFarmerFarmProductsByIdAsync();
+          var email = User.FindFirst(ClaimTypes.Email).Value;
+            if (!_memoryCache.TryGetValue($"FarmerProducts_With_Email_{email}", out BaseResponse<IEnumerable<ProductDto>> products))
+            {
+                 products =  await _productService.GetFarmerFarmProductsByIdAsync(email);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"FarmerProducts_With_Email_{email}", products, cacheEntryOptions);
+
+            }
+          // var products =  await _productService.GetFarmerFarmProductsByIdAsync();
             if(products.IsSuccess == false) return BadRequest(products);
             return Ok(products);
         }
 
 
         [HttpGet("AvailableProducts")]
-        [ResponseCache(Duration = 3600,Location = ResponseCacheLocation.Any)]  //using cache as an attribute for fast 
+        [ResponseCache(Duration = 3600,Location = ResponseCacheLocation.Any)]  
            public async Task<IActionResult> AvailableProducts()
         {
-               if (!_memoryCache.TryGetValue($"CacheKey", out BaseResponse<IEnumerable<ProductDto>> cachedValue))
+               if (!_memoryCache.TryGetValue($"Available_Products", out BaseResponse<IEnumerable<ProductDto>> cachedValue))
             {
                  cachedValue =  await _productService.GetAllFarmProductByLocationAsync();
                   var cacheEntryOptions = new MemoryCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
                 };
-                 _memoryCache.Set($"CacheKey", cachedValue, cacheEntryOptions);
+                 _memoryCache.Set($"Available_Products", cachedValue, cacheEntryOptions);
 
             }
               
@@ -133,8 +146,17 @@ public class ProductController : VersionedApiController
          public async Task<IActionResult> SearchProduct([FromRoute]string searchInput)
         {
             if(string.IsNullOrWhiteSpace(searchInput)) return BadRequest();
-        
-             var products = await _productService.SearchProductsByProductNameOrFarmerUserNameOrFarmerEmail(searchInput);
+             if (!_memoryCache.TryGetValue($"Searched_Product_{searchInput}", out BaseResponse<IEnumerable<ProductDto>> products))
+            {
+                 products =  await _productService.SearchProductsByProductNameOrFarmerUserNameOrFarmerEmail(searchInput);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Searched_Product_{searchInput}", products, cacheEntryOptions);
+
+            }
+            
               if(products.IsSuccess == false) return BadRequest(products);
             return Ok(products);
         }

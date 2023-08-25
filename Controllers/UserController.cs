@@ -1,9 +1,11 @@
 using System.Security.Claims;
 using AgroExpressAPI.ApplicationAuthentication;
 using AgroExpressAPI.Dtos.User;
+using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AgroExpressAPI.Controllers;
 
@@ -16,10 +18,12 @@ public class UserController : VersionedApiController
 
          private readonly IUserService _userService;
          private readonly IJWTAuthentication _authentication;
-        public UserController(IUserService userService, IJWTAuthentication authentication)
+          private readonly IMemoryCache _memoryCache;
+        public UserController(IUserService userService, IJWTAuthentication authentication, IMemoryCache memoryCache)
         {
             _userService = userService;
             _authentication = authentication;
+            _memoryCache = memoryCache;
             
         }
        /* [MapToApiVersion("1.0")]
@@ -65,7 +69,16 @@ public class UserController : VersionedApiController
        [HttpGet("ApplicationUsers")]
         public async Task<IActionResult> ApplicationUsers()
         {
-            var users = await _userService.GetAllAsync();
+             if (!_memoryCache.TryGetValue($"Application_Users", out BaseResponse<IEnumerable<UserDto>> users))
+            {
+                 users =  await _userService.GetAllAsync();
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Application_Users", users, cacheEntryOptions);
+
+            }
             if(users.IsSuccess == false)
             {
                return BadRequest(users);
@@ -118,7 +131,16 @@ public class UserController : VersionedApiController
                  return BadRequest();
             }
 
-             var users = await _userService.SearchUserByEmailOrUserName(searchInput);
+              if (!_memoryCache.TryGetValue($"Searched_Users_{searchInput}", out BaseResponse<IEnumerable<UserDto>> users))
+            {
+                 users =  await _userService.SearchUserByEmailOrUserName(searchInput);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Searched_Users_{searchInput}", users, cacheEntryOptions);
+            }
+
               if(users.IsSuccess == false)
             {
                 return BadRequest(users);
@@ -129,7 +151,16 @@ public class UserController : VersionedApiController
           [HttpGet("PendingRegistration")]
         public async Task<IActionResult> PendingRegistration()
         {
-            var pendingRequests = await _userService.PendingRegistration();
+              if (!_memoryCache.TryGetValue($"Pending_Registration", out BaseResponse<IEnumerable<UserDto>> pendingRequests))
+            {
+                 pendingRequests =  await _userService.PendingRegistration();
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Pending_Registration", pendingRequests, cacheEntryOptions);
+            }
+            
               if(pendingRequests.IsSuccess == false)
             {
                 return BadRequest(pendingRequests);

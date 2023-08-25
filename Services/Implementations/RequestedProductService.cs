@@ -5,6 +5,7 @@ using AgroExpressAPI.Email;
 using AgroExpressAPI.Entities;
 using AgroExpressAPI.Repositories.Interfaces;
 using AgroExpressAPI.Services.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AgroExpressAPI.Services.Implementations;
 public class RequestedProductService : IRequestedProductService
@@ -15,8 +16,9 @@ public class RequestedProductService : IRequestedProductService
          private readonly IUserRepository _userRepository;
          private readonly IFarmerRepository _farmerRepository;
          private readonly IEmailSender _emailSender;
+         private readonly IMemoryCache _memoryCache;
 
-        public  RequestedProductService(IRequestedProductRepository requestedProductRepository, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository,IFarmerRepository farmerRepository, IProductRepository productRepository, IEmailSender emailSender)
+        public  RequestedProductService(IRequestedProductRepository requestedProductRepository, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository,IFarmerRepository farmerRepository, IProductRepository productRepository, IEmailSender emailSender,IMemoryCache memoryCache)
         {
           _requestedProductRepository = requestedProductRepository;
           _httpContextAccessor = httpContextAccessor;
@@ -24,6 +26,7 @@ public class RequestedProductService : IRequestedProductService
           _farmerRepository = farmerRepository;
           _productRepository = productRepository;
           _emailSender = emailSender;
+           _memoryCache = memoryCache;
         }
         public async Task<BaseResponse<RequestedProductDto>> CreateRequstedProductAsync(string productId, CreateRequestedProductRequestModel requestedModelodel)
         {
@@ -98,7 +101,16 @@ public class RequestedProductService : IRequestedProductService
 
         public async Task DeleteRequestedProduct(string productId)
         {
-            var product = await _requestedProductRepository.GetProductByProductIdAsync(productId);
+           if (!_memoryCache.TryGetValue($"RequestedProducts_{productId}", out RequestedProduct product))
+            {
+                 product =  await _requestedProductRepository.GetProductByProductIdAsync(productId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"RequestedProducts_{productId}", product, cacheEntryOptions);
+
+            }
             await _requestedProductRepository.DeleteRequestedProduct(product);
 
                var email = new EmailRequestModel{
@@ -113,7 +125,17 @@ public class RequestedProductService : IRequestedProductService
 
     public async Task<BaseResponse<RequestedProductDto>> GetRequestedProductById(string productId)
     {
-        var product = _requestedProductRepository.GetRequstedProductById(productId);
+      if (!_memoryCache.TryGetValue($"RequestedProducts_{productId}", out RequestedProduct product))
+            {
+                 product =  _requestedProductRepository.GetRequstedProductById(productId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"RequestedProducts_{productId}", product, cacheEntryOptions);
+
+            }
+        
         if(product == null)
         {
             return new BaseResponse<RequestedProductDto>
@@ -220,7 +242,17 @@ public class RequestedProductService : IRequestedProductService
 
         public async Task<BaseResponse<RequestedProductDto>> ProductAccepted(string productId)
         {
-            var requestedProduct =  await _requestedProductRepository.GetProductByProductIdAsync(productId);
+           if (!_memoryCache.TryGetValue($"GetRequestedProducts_{productId}", out RequestedProduct requestedProduct))
+            {
+                 requestedProduct =  _requestedProductRepository.GetRequstedProductById(productId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"GetRequestedProducts_{productId}", requestedProduct, cacheEntryOptions);
+
+            }
+           
             requestedProduct.IsAccepted = true;
             _requestedProductRepository.UpdateRequestedProduct(requestedProduct);
 
@@ -242,7 +274,17 @@ public class RequestedProductService : IRequestedProductService
 
         public async Task  ProductDelivered(string productId)
         {
-           var requestedProduct =  await _requestedProductRepository.GetProductByProductIdAsync(productId);
+           if (!_memoryCache.TryGetValue($"RequestedProducts_{productId}", out RequestedProduct requestedProduct))
+            {
+                 requestedProduct =  await _requestedProductRepository.GetProductByProductIdAsync(productId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"RequestedProducts_{productId}", requestedProduct, cacheEntryOptions);
+
+            }
+           
            var id =  _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var farmer = _farmerRepository.GetByIdAsync(requestedProduct.FarmerId);
             if(farmer.UserId != id)

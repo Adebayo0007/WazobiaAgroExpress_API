@@ -1,8 +1,11 @@
 using System.Security.Claims;
 using AgroExpressAPI.Dtos.Farmer;
+using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using AgroExpressAPI.Dtos.AllFarmers;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AgroExpressAPI.Controllers;
 [ApiVersion("1.0")]
@@ -12,12 +15,13 @@ public class FarmerController : VersionedApiController
          private readonly IFarmerService _farmerService;
         private readonly IUserService _userService;
          private readonly IWebHostEnvironment _webHostEnvironment;
-        public FarmerController(IFarmerService farmerService, IUserService userService,IWebHostEnvironment webHostEnvironment)
+          private readonly IMemoryCache _memoryCache;
+        public FarmerController(IFarmerService farmerService, IUserService userService,IWebHostEnvironment webHostEnvironment, IMemoryCache memoryCache)
         {
             _farmerService = farmerService;
             _userService = userService;
             _webHostEnvironment = webHostEnvironment;
-            
+            _memoryCache = memoryCache;
         }
 
        
@@ -124,7 +128,17 @@ public class FarmerController : VersionedApiController
         [HttpGet("Farmers")]
         public async Task<IActionResult> Farmers()
         {
-            var farmers = await _farmerService.GetAllActiveAndNonActiveAsync();
+          if (!_memoryCache.TryGetValue($"Application_Farmers", out BaseResponse<ActiveAndNonActiveFarmers> farmers))
+            {
+                 farmers =  await _farmerService.GetAllActiveAndNonActiveAsync();
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Application_Farmers", farmers, cacheEntryOptions);
+
+            }
+          
             if(farmers.IsSuccess == false) return BadRequest(farmers);
             return Ok(farmers);
 
@@ -133,8 +147,19 @@ public class FarmerController : VersionedApiController
            [HttpGet("SearchFarmers/{searchInput}")]
          public async Task<IActionResult> SearchFarmers([FromRoute]string searchInput)
         {
+           
              if(string.IsNullOrWhiteSpace(searchInput)) return BadRequest();
-             var farmers = await _farmerService.SearchFarmerByEmailOrUserName(searchInput);
+             if (!_memoryCache.TryGetValue($"Searched_Farmers_{searchInput}", out BaseResponse<IEnumerable<FarmerDto>> farmers))
+            {
+                 farmers =  await _farmerService.SearchFarmerByEmailOrUserName(searchInput);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Searched_Farmers_{searchInput}", farmers, cacheEntryOptions);
+
+            }
+             
               if(farmers.IsSuccess == false) return BadRequest(farmers);
              return Ok(farmers);
         }

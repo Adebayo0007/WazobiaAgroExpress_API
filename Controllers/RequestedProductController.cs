@@ -1,8 +1,11 @@
 using System.Security.Claims;
+using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Dtos.RequestedProduct;
 using AgroExpressAPI.Email;
 using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using System.Security.Claims;
 
 namespace AgroExpressAPI.Controllers;
 [ApiVersion("1.0")]
@@ -14,14 +17,16 @@ public class RequestedProductController : VersionedApiController
              private readonly IUserService _userService;
              private readonly ITransactionService _transactionService;
              private readonly IEmailSender _emailSender;
+              private readonly IMemoryCache _memoryCache;
              
-        public RequestedProductController(IRequestedProductService requstedProductService, IProductService productService, IUserService userService, ITransactionService transactionService, IEmailSender emailSender)
+        public RequestedProductController(IRequestedProductService requstedProductService, IProductService productService, IUserService userService, ITransactionService transactionService, IEmailSender emailSender, IMemoryCache memoryCache)
         {
             _requstedProductService = requstedProductService;
             _productService = productService;
             _userService = userService;
             _transactionService = transactionService;
             _emailSender = emailSender;
+            _memoryCache = memoryCache;
         }
 
        
@@ -52,8 +57,17 @@ public class RequestedProductController : VersionedApiController
         [HttpGet("OrderedProductAndPendingProduct")]
           public async Task<IActionResult> OrderedProductAndPendingProduct(string buyerEmail)
         {
-                    if(buyerEmail == null) buyerEmail = User.FindFirst(ClaimTypes.Email).Value;
-                var results =  await  _requstedProductService.OrderedAndPendingProduct(buyerEmail);
+            if(buyerEmail == null) buyerEmail = User.FindFirst(ClaimTypes.Email).Value;
+             if (!_memoryCache.TryGetValue($"Ordered_And_Pending_Product_By_{buyerEmail}", out BaseResponse<OrderedRequestAndPendingRequest> results))
+            {
+                 results =  await  _requstedProductService.OrderedAndPendingProduct(buyerEmail);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Ordered_And_Pending_Product_By_{buyerEmail}", results, cacheEntryOptions);
+
+            }
                 if(results.IsSuccess != true) return BadRequest(results);
                return Ok(results);
          }
@@ -115,7 +129,16 @@ public class RequestedProductController : VersionedApiController
         public async Task<IActionResult> MyRequests([FromRoute]string farmerId)
         {
             farmerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-           var requests =  await _requstedProductService.MyRequests(farmerId); 
+             if (!_memoryCache.TryGetValue($"Requst_For_Farmer_With_Id_{farmerId}", out BaseResponse<IEnumerable<RequestedProductDto>> requests))
+            {
+                 requests =  await _requstedProductService.MyRequests(farmerId); 
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10) // Cache for 10 minutes
+                };
+                 _memoryCache.Set($"Requst_For_Farmer_With_Id_{farmerId}", requests, cacheEntryOptions);
+
+            }
             if(requests.IsSuccess == false) return BadRequest(requests);
             return Ok(requests);
         }

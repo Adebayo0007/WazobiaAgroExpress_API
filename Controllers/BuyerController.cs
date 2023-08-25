@@ -1,8 +1,11 @@
 using System.Security.Claims;
 using AgroExpressAPI.Dtos.Buyer;
+using AgroExpressAPI.Dtos;
 using AgroExpressAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using AgroExpressAPI.Dtos.AllBuyers;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AgroExpressAPI.Controllers;
 [ApiVersion("1.0")]
@@ -12,12 +15,13 @@ public class BuyerController : VersionedApiController
          private readonly IBuyerService _buyerService;
            private readonly IUserService _userService;
             private readonly IWebHostEnvironment _webHostEnvironment;
-        public BuyerController(IBuyerService buyerService, IUserService userService, IWebHostEnvironment webHostEnvironment)
+            private readonly IMemoryCache _memoryCache;
+        public BuyerController(IBuyerService buyerService, IUserService userService, IWebHostEnvironment webHostEnvironment, IMemoryCache memoryCache)
         {
             _buyerService = buyerService;
             _userService = userService;
             _webHostEnvironment = webHostEnvironment;
-            
+            _memoryCache = memoryCache;
         }
 
          [HttpPost("CreateBuyer")]
@@ -146,7 +150,16 @@ public class BuyerController : VersionedApiController
           [HttpGet("Buyers")]
         public async Task<IActionResult> Buyers()
         {
-            var buyers = await _buyerService.GetAllActiveAndNonActiveAsync();
+             if (!_memoryCache.TryGetValue($"Application_Buyers", out BaseResponse<ActiveAndNonActiveBuyers> buyers))
+            {
+                 buyers =  await _buyerService.GetAllActiveAndNonActiveAsync();
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Application_Buyers", buyers, cacheEntryOptions);
+
+            }
             if(buyers.IsSuccess == false) return BadRequest(buyers);
             return Ok(buyers);
 
@@ -157,7 +170,16 @@ public class BuyerController : VersionedApiController
          public async Task<IActionResult> SearchBuyers([FromRoute]string searchInput)
         {
              if(string.IsNullOrWhiteSpace(searchInput)) return BadRequest();
-             var buyers = await _buyerService.SearchBuyerByEmailOrUserName(searchInput);
+              if (!_memoryCache.TryGetValue($"Searched_Buyers_{searchInput}", out BaseResponse<IEnumerable<BuyerDto>> buyers))
+            {
+                 buyers =  await _buyerService.SearchBuyerByEmailOrUserName(searchInput);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30) // Cache for 30 minutes
+                };
+                 _memoryCache.Set($"Searched_Buyers_{searchInput}", buyers, cacheEntryOptions);
+
+            }
               if(buyers.IsSuccess == false) return BadRequest(buyers);
              return Ok(buyers);
         }

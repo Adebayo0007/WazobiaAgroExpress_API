@@ -7,6 +7,7 @@ using AgroExpressAPI.Email;
 using AgroExpressAPI.Entities;
 using AgroExpressAPI.Repositories.Interfaces;
 using AgroExpressAPI.Services.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AgroExpressAPI.Services.Implementations;
 public class UserService : IUserService
@@ -14,17 +15,29 @@ public class UserService : IUserService
         private readonly IUserRepository _userRepository;
           private readonly IHttpContextAccessor _httpContextAccessor;
           private readonly IEmailSender _emailSender;
-        public UserService(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
+          private readonly IMemoryCache _memoryCache;
+        public UserService(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender, IMemoryCache memoryCache)
         {
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
             _emailSender = emailSender;
+            _memoryCache = memoryCache;
             
         }
  
         public async Task DeleteAsync(string userId)
         {
-            var user = _userRepository.GetByIdAsync(userId);
+             if (!_memoryCache.TryGetValue($"User_With_Id_{userId}", out User user))
+            {
+                 user =  _userRepository.GetByIdAsync(userId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"User_With_Id_{userId}", user, cacheEntryOptions);
+
+            }
+           
             user.IsActive = user.IsActive == true? false: true;
              await _userRepository.Delete(user);
         }
@@ -53,7 +66,17 @@ public class UserService : IUserService
 
         public async Task<BaseResponse<UserDto>> GetByEmailAsync(string userEmail)
         {
-            var user =  _userRepository.GetByEmailAsync(userEmail);
+              if (!_memoryCache.TryGetValue($"User_With_Email_{userEmail}", out User user))
+            {
+                 user =  _userRepository.GetByEmailAsync(userEmail);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5) // Cache for 5 minutes
+                };
+                 _memoryCache.Set($"User_With_Email_{userEmail}", user, cacheEntryOptions);
+
+            }
+           
             if(user == null)
             {
                     return new BaseResponse<UserDto>
@@ -77,8 +100,17 @@ public class UserService : IUserService
         public async Task<BaseResponse<UserDto>> Login(LogInRequestModel logInRequestMode)
         {
             var email =await _userRepository.ExistByEmailAsync(logInRequestMode.Email);
+             if (!_memoryCache.TryGetValue($"User_With_Email_{logInRequestMode.Email}", out User user))
+            {
+                 user =  _userRepository.GetByEmailAsync(logInRequestMode.Email);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5) // Cache for 5 minutes
+                };
+                 _memoryCache.Set($"User_With_Email_{logInRequestMode.Email}", user, cacheEntryOptions);
+
+            }
          
-               var user = _userRepository.GetByEmailAsync(logInRequestMode.Email);
                  if(user.IsRegistered == false)
                 {
                       return new BaseResponse<UserDto>
@@ -170,7 +202,17 @@ public class UserService : IUserService
 
         public async Task<BaseResponse<UserDto>> GetByIdAsync(string userId)
         {
-            var user = _userRepository.GetByIdAsync(userId);
+             if (!_memoryCache.TryGetValue($"User_With_Id_{userId}", out User user))
+            {
+                 user =  _userRepository.GetByIdAsync(userId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"User_With_Id_{userId}", user, cacheEntryOptions);
+
+            }
+          
             if(user == null)
             {
                     return new BaseResponse<UserDto>
@@ -190,7 +232,17 @@ public class UserService : IUserService
 
         public BaseResponse<UserDto> UpdateAsync(UpdateUserRequestModel updateUserModel, string userId)
         {
-            var user =  _userRepository.GetByIdAsync(userId);
+             if (!_memoryCache.TryGetValue($"User_With_Id_{userId}", out User user))
+            {
+                 user =  _userRepository.GetByIdAsync(userId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"User_With_Id_{userId}", user, cacheEntryOptions);
+
+            }
+           
             if(user == null)
             {
                  return new BaseResponse<UserDto>
@@ -276,7 +328,17 @@ public class UserService : IUserService
 
         public BaseResponse<UserDto> VerifyUser(string userEmail)
         {
-           var user =  _userRepository.GetByEmailAsync(userEmail);
+             if (!_memoryCache.TryGetValue($"User_With_Email_{userEmail}", out User user))
+            {
+                 user =  _userRepository.GetByEmailAsync(userEmail);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"User_With_Email_{userEmail}", user, cacheEntryOptions);
+
+            }
+     
            user.IsRegistered = true;
            _userRepository.Update(user);
 
@@ -312,7 +374,16 @@ public class UserService : IUserService
         public Task UpdatingToHasPaid(string email)
         {
            email =   string.IsNullOrWhiteSpace(email) ? _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value : email;
-          var user = _userRepository.GetByEmailAsync(email);
+            if (!_memoryCache.TryGetValue($"User_With_Email_{email}", out User user))
+            {
+                 user =  _userRepository.GetByEmailAsync(email);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"User_With_Email_{email}", user, cacheEntryOptions);
+
+            }
           user.Haspaid = true;
           _userRepository.Update(user);
            return null;
@@ -320,7 +391,17 @@ public class UserService : IUserService
 
         public async Task<bool> ForgottenPassword(string email)
         {
-            var user = _userRepository.GetByEmailAsync(email);
+            if (!_memoryCache.TryGetValue($"User_With_Email_{email}", out User user))
+            {
+                 user =  _userRepository.GetByEmailAsync(email);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"User_With_Email_{email}", user, cacheEntryOptions);
+
+            }
+            
              var emailRequestModel = new EmailRequestModel{
                  ReceiverEmail = email,
                  ReceiverName = email,
@@ -337,7 +418,17 @@ public class UserService : IUserService
 
     public async Task UpdateRefreshToken(string userEmail, string refreshToken)
     {
-        var user = _userRepository.GetByEmailAsync(userEmail);
+         if (!_memoryCache.TryGetValue($"User_With_Email_{userEmail}", out User user))
+            {
+                 user =  _userRepository.GetByEmailAsync(userEmail);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"User_With_Email_{userEmail}", user, cacheEntryOptions);
+
+            }
+    
         user.RefreshToken = refreshToken;
         user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);  
          _userRepository.Update(user);

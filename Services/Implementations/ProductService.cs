@@ -5,6 +5,7 @@ using AgroExpressAPI.Email;
 using AgroExpressAPI.Entities;
 using AgroExpressAPI.Repositories.Interfaces;
 using AgroExpressAPI.Services.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AgroExpressAPI.Services.Implementations;
 public class ProductService : IProductService
@@ -14,14 +15,16 @@ public class ProductService : IProductService
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserRepository _userRepository;
           private readonly IEmailSender _emailSender;
+           private readonly IMemoryCache _memoryCache;
 
-        public ProductService(IProductRepository productRepository, IHttpContextAccessor httpContextAccessor, IFarmerRepository farmerRepository, IUserRepository userRepository, IEmailSender emailSender)
+        public ProductService(IProductRepository productRepository, IHttpContextAccessor httpContextAccessor, IFarmerRepository farmerRepository, IUserRepository userRepository, IEmailSender emailSender, IMemoryCache memoryCache)
         {
             _productRepository = productRepository;
             _httpContextAccessor = httpContextAccessor;
             _farmerRepository = farmerRepository;
             _userRepository = userRepository;
             _emailSender = emailSender;
+            _memoryCache = memoryCache;
         }
         public async Task<BaseResponse<ProductDto>> CreateProductAsync(CreateProductRequestModel productModel)
         {
@@ -83,7 +86,16 @@ public class ProductService : IProductService
            await _productRepository.DeleteExpiredProducts();
         public async Task DeleteProduct(string productId)
         {
-            var product = _productRepository.GetProductById(productId);
+              if (!_memoryCache.TryGetValue($"Products_{productId}", out Product product))
+            {
+                 product =  _productRepository.GetProductById(productId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"Products_{productId}", product, cacheEntryOptions);
+
+            }
             await  _productRepository.DeleteProduct(product);
         }
 
@@ -129,10 +141,9 @@ public class ProductService : IProductService
             };
         }
 
-        public async Task<BaseResponse<IEnumerable<ProductDto>>> GetFarmerFarmProductsByIdAsync()
+        public async Task<BaseResponse<IEnumerable<ProductDto>>> GetFarmerFarmProductsByIdAsync(string email)
         {
-             var userEmail = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Email)?.Value;
-            var farmer = _farmerRepository.GetByEmailAsync(userEmail);
+            var farmer = _farmerRepository.GetByEmailAsync(email);
             var products = await _productRepository.GetFarmerFarmProductsByIdAsync(farmer.Id);
                 if(products == null)
             {
@@ -152,7 +163,16 @@ public class ProductService : IProductService
 
         public async Task<BaseResponse<ProductDto>> GetProductById(string productId)
         {
-            var product =_productRepository.GetProductById(productId);
+             if (!_memoryCache.TryGetValue($"Products_{productId}", out Product product))
+            {
+                 product =  _productRepository.GetProductById(productId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"Products_{productId}", product, cacheEntryOptions);
+
+            }
             if(product == null)
             {
                     return new BaseResponse<ProductDto>{
@@ -213,7 +233,16 @@ public class ProductService : IProductService
 
         public async Task<BaseResponse<ProductDto>> UpdateProduct(UpdateProductRequestModel productModel, string productId)
         {
-            var product = _productRepository.GetProductById(productId);
+             if (!_memoryCache.TryGetValue($"Products_{productId}", out Product product))
+            {
+                 product =  _productRepository.GetProductById(productId);
+                  var cacheEntryOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(3) // Cache for 3 minutes
+                };
+                 _memoryCache.Set($"Products_{productId}", product, cacheEntryOptions);
+
+            }
             if(product == null)
             {
                  return new BaseResponse<ProductDto>{
